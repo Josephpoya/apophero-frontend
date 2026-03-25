@@ -411,14 +411,73 @@ pages['contact'] = function() {
   </section>`;
 };
 
-function submitContact(e) {
+async function submitContact(e) {
   e.preventDefault();
+
   const btn = document.getElementById('contactSubmitBtn');
-  btn.textContent = '✓ Message Sent!';
-  btn.style.background = 'var(--teal-dark)';
+  const originalText = btn.textContent;
+  const form = e.target;
+
+  // Show loading state
+  btn.textContent = 'Sending message...';
   btn.disabled = true;
-  showToast('Message sent! We\'ll respond within 24 hours.');
-  setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; btn.disabled = false; e.target.reset(); }, 4000);
+
+  // Collect form data based on your current HTML structure
+  const formData = {
+    firstName: form.querySelectorAll('.form-row input')[0].value.trim(),
+    lastName:  form.querySelectorAll('.form-row input')[1].value.trim(),
+    email:     form.querySelector('input[type="email"]').value.trim(),
+    subject:   form.querySelector('select').value,
+    message:   form.querySelector('textarea').value.trim()
+  };
+
+  try {
+    const API_BASE = 'https://apophero-backend.onrender.com';
+
+    const response = await fetch(`${API_BASE}/api/v1/contact`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    });
+
+    const result = await response.json();
+
+    if (response.ok && result.success) {
+      // Success
+      btn.textContent = '✓ Message Sent Successfully!';
+      btn.style.backgroundColor = 'var(--teal-dark)';
+
+      showToast("Thank you! We'll get back to you within 24 hours. 🎉");
+
+      // Reset form after success
+      setTimeout(() => {
+        form.reset();
+        btn.textContent = originalText;
+        btn.style.backgroundColor = '';
+        btn.disabled = false;
+      }, 4000);
+
+    } else {
+      throw new Error(result.message || 'Failed to send message');
+    }
+
+  } catch (error) {
+    console.error('Contact form error:', error);
+
+    btn.textContent = '❌ Failed to send';
+    btn.style.backgroundColor = '#ef4444';
+
+    showToast('Something went wrong. Please try again.', 'error');
+
+    // Reset button after a few seconds
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.style.backgroundColor = '';
+      btn.disabled = false;
+    }, 4000);
+  }
 }
 
 /* ═══════════════════════════════════════════
@@ -597,12 +656,73 @@ function scrollToBookForm() {
   document.getElementById('bookForm')?.scrollIntoView({ behavior:'smooth' });
 }
 
-function submitBooking(e) {
+async function submitBooking(e) {
   e.preventDefault();
+
   const btn = document.getElementById('bookBtn');
-  btn.textContent = '✓ Booking Request Sent!';
-  btn.style.background = 'var(--teal-dark)';
+  const originalText = btn.textContent;
+  const form = e.target;
+
+  // Show loading state
+  btn.textContent = 'Sending request...';
   btn.disabled = true;
-  showToast('Booking received! We\'ll confirm within 24 hours. 🎉');
-  setTimeout(() => { btn.textContent = 'Request Booking →'; btn.style.background = ''; btn.disabled = false; e.target.reset(); }, 5000);
+
+  // Collect form data (using your current form structure)
+  const formData = {
+    firstName:   form.querySelectorAll('.form-group input')[0].value.trim(),
+    lastName:    form.querySelectorAll('.form-group input')[1].value.trim(),
+    email:       form.querySelector('input[type="email"]').value.trim(),
+    phone:       form.querySelector('input[type="tel"]').value.trim(),
+    sessionType: form.querySelectorAll('select')[0].value,
+    concern:     form.querySelectorAll('select')[1].value,
+    message:     form.querySelector('textarea').value.trim()
+  };
+
+  try {
+    const API_BASE = 'https://apophero-backend.onrender.com';
+
+    const response = await fetch(`${API_BASE}/api/v1/bookings`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    });
+
+    const result = await response.json();
+
+    if (response.ok && result.success) {
+      // Success
+      btn.textContent = '✓ Booking Request Sent!';
+      btn.style.backgroundColor = 'var(--teal-dark)';
+
+      showToast("Booking received! We'll confirm within 24 hours. 🎉");
+
+      // Reset form after success
+      setTimeout(() => {
+        form.reset();
+        btn.textContent = originalText;
+        btn.style.backgroundColor = '';
+        btn.disabled = false;
+      }, 4000);
+
+    } else {
+      throw new Error(result.message || 'Something went wrong');
+    }
+
+  } catch (error) {
+    console.error('Booking error:', error);
+
+    btn.textContent = '❌ Failed to send';
+    btn.style.backgroundColor = '#ef4444';
+
+    showToast('Failed to send booking. Please try again.', 'error');
+
+    // Reset button
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.style.backgroundColor = '';
+      btn.disabled = false;
+    }, 4000);
+  }
 }
