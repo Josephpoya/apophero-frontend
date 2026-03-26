@@ -374,32 +374,32 @@ pages['contact'] = function() {
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label">First Name *</label>
-                <input class="form-input" type="text" placeholder="John" required>
+                <input class="form-input" id="contactFirstName" type="text" placeholder="John" required>
               </div>
               <div class="form-group">
                 <label class="form-label">Last Name *</label>
-                <input class="form-input" type="text" placeholder="Doe" required>
+                <input class="form-input" id="contactLastName" type="text" placeholder="Doe" required>
               </div>
             </div>
             <div class="form-group">
               <label class="form-label">Email Address *</label>
-              <input class="form-input" type="email" placeholder="john@example.com" required>
+              <input class="form-input" id="contactEmail" type="email" placeholder="john@example.com" required>
             </div>
             <div class="form-group">
               <label class="form-label">Subject *</label>
-              <select class="form-select form-input" required>
-                <option value="">Select a topic…</option>
-                <option>Question about a guide</option>
-                <option>Book a consultation</option>
-                <option>Technical issue</option>
-                <option>Feedback or suggestion</option>
-                <option>Partnership inquiry</option>
-                <option>Other</option>
-              </select>
+              <select class="form-select form-input" id="contactSubject" required>
+  <option value="">Select a topic…</option>
+  <option value="Question about a guide">Question about a guide</option>
+  <option value="Book a consultation">Book a consultation</option>
+  <option value="Technical issue">Technical issue</option>
+  <option value="Feedback or suggestion">Feedback or suggestion</option>
+  <option value="Partnership inquiry">Partnership inquiry</option>
+  <option value="Other">Other</option>
+</select>
             </div>
             <div class="form-group">
               <label class="form-label">Message *</label>
-              <textarea class="form-textarea" placeholder="Tell us how we can help you…" required></textarea>
+              <textarea class="form-textarea" id="contactMessage" placeholder="Tell us how we can help you…" required></textarea>
             </div>
             <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center" id="contactSubmitBtn">
               Send Message →
@@ -416,67 +416,50 @@ async function submitContact(e) {
 
   const btn = document.getElementById('contactSubmitBtn');
   const originalText = btn.textContent;
-  const form = e.target;
-
-  // Show loading state
-  btn.textContent = 'Sending message...';
+  btn.textContent = 'Sending…';
   btn.disabled = true;
 
-  // Collect form data based on your current HTML structure
-  const formData = {
-    firstName: form.querySelectorAll('.form-row input')[0].value.trim(),
-    lastName:  form.querySelectorAll('.form-row input')[1].value.trim(),
-    email:     form.querySelector('input[type="email"]').value.trim(),
-    subject:   form.querySelector('select').value,
-    message:   form.querySelector('textarea').value.trim()
-  };
-
   try {
-    const API_BASE = 'https://apophero-backend.onrender.com';
+    const formData = {
+      firstName: document.getElementById('contactFirstName').value.trim(),
+      lastName:  document.getElementById('contactLastName').value.trim(),
+      email:     document.getElementById('contactEmail').value.trim(),
+      subject:   document.getElementById('contactSubject').value,
+      message:   document.getElementById('contactMessage').value.trim()
+    };
 
-    const response = await fetch(`${API_BASE}/api/v1/contact`, {
+    // Validate subject is selected
+    if (!formData.subject) {
+      throw new Error('Please select a subject');
+    }
+
+    const response = await fetch('https://apophero-backend.onrender.com/api/v1/contact', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
     });
 
     const result = await response.json();
+    if (!result.success) throw new Error(result.message);
 
-    if (response.ok && result.success) {
-      // Success
-      btn.textContent = '✓ Message Sent Successfully!';
-      btn.style.backgroundColor = 'var(--teal-dark)';
+    // Success
+    btn.textContent = '✓ Message Sent!';
+    btn.style.background = 'var(--teal-dark)';
+    showToast("Message received! We'll respond within 24 hours. 🎉");
+    e.target.reset();
 
-      showToast("Thank you! We'll get back to you within 24 hours. 🎉");
-
-      // Reset form after success
-      setTimeout(() => {
-        form.reset();
-        btn.textContent = originalText;
-        btn.style.backgroundColor = '';
-        btn.disabled = false;
-      }, 4000);
-
-    } else {
-      throw new Error(result.message || 'Failed to send message');
-    }
-
-  } catch (error) {
-    console.error('Contact form error:', error);
-
-    btn.textContent = '❌ Failed to send';
-    btn.style.backgroundColor = '#ef4444';
-
-    showToast('Something went wrong. Please try again.', 'error');
-
-    // Reset button after a few seconds
     setTimeout(() => {
       btn.textContent = originalText;
-      btn.style.backgroundColor = '';
+      btn.style.background = '';
       btn.disabled = false;
     }, 4000);
+
+  } catch (err) {
+    console.error('Contact error:', err);
+    btn.textContent = originalText;
+    btn.style.background = '';
+    btn.disabled = false;
+    showToast(err.message || 'Something went wrong. Please try again.');
   }
 }
 
@@ -598,47 +581,47 @@ pages['book'] = function() {
           <div class="form-row">
             <div class="form-group">
               <label class="form-label">First Name *</label>
-              <input class="form-input" type="text" placeholder="Jane" required>
+              <input class="form-input" id="firstName" type="text" placeholder="Jane" required>
             </div>
             <div class="form-group">
               <label class="form-label">Last Name *</label>
-              <input class="form-input" type="text" placeholder="Doe" required>
+              <input class="form-input" id="lastName" type="text" placeholder="Doe" required>
             </div>
           </div>
           <div class="form-group">
             <label class="form-label">Email Address *</label>
-            <input class="form-input" type="email" placeholder="jane@example.com" required>
+            <input class="form-input" id="bookEmail" type="email" placeholder="jane@example.com" required>
           </div>
           <div class="form-group">
             <label class="form-label">WhatsApp Number</label>
-            <input class="form-input" type="tel" placeholder="+256 700 000 000">
+            <input class="form-input" id="phone" type="tel" placeholder="+256 700 000 000">
           </div>
           <div class="form-group">
             <label class="form-label">Session Type *</label>
-            <select class="form-select form-input" required>
-              <option value="">Choose a session…</option>
-              <option>Quick Consult (Free intro)</option>
-              <option>Deep Dive (Premium)</option>
-              <option>3-Month Journey (Full Program)</option>
-            </select>
+            <select class="form-select form-input" id="sessionType" required>
+  <option value="">Choose a session…</option>
+  <option value="quick-consult">Quick Consult (Free intro)</option>
+  <option value="deep-dive">Deep Dive (Premium)</option>
+  <option value="3-month-journey">3-Month Journey (Full Program)</option>
+</select>
           </div>
           <div class="form-group">
             <label class="form-label">Primary Health Concern *</label>
-            <select class="form-select form-input" required>
-              <option value="">Select your concern…</option>
-              <option>Weight Loss / Metabolism</option>
-              <option>Testosterone / Men's Hormones</option>
-              <option>Premature Ejaculation</option>
-              <option>PCOS / Women's Hormones</option>
-              <option>Pregnancy / Antenatal</option>
-              <option>Mental / Behavioral Health</option>
-              <option>General Wellness</option>
-              <option>Multiple concerns</option>
-            </select>
+            <select class="form-select form-input" id="concern" required>
+  <option value="">Select your concern…</option>
+  <option value="weight-loss">Weight Loss / Metabolism</option>
+  <option value="testosterone">Testosterone / Men's Hormones</option>
+  <option value="premature-ejaculation">Premature Ejaculation</option>
+  <option value="pcos">PCOS / Women's Hormones</option>
+  <option value="pregnancy">Pregnancy / Antenatal</option>
+  <option value="mental-health">Mental / Behavioral Health</option>
+  <option value="general-wellness">General Wellness</option>
+  <option value="multiple">Multiple concerns</option>
+</select>
           </div>
           <div class="form-group">
             <label class="form-label">Tell us more about your goals</label>
-            <textarea class="form-textarea" placeholder="What are you hoping to achieve? Any current medications or conditions we should know about?"></textarea>
+            <textarea class="form-textarea" id="notes" placeholder="What are you hoping to achieve? Any current medications or conditions we should know about?"></textarea>
           </div>
           <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center" id="bookBtn">
             Request Booking →
@@ -658,71 +641,41 @@ function scrollToBookForm() {
 
 async function submitBooking(e) {
   e.preventDefault();
-
   const btn = document.getElementById('bookBtn');
-  const originalText = btn.textContent;
-  const form = e.target;
-
-  // Show loading state
-  btn.textContent = 'Sending request...';
+  btn.textContent = 'Sending…';
   btn.disabled = true;
 
-  // Collect form data (using your current form structure)
-  const formData = {
-    firstName:   form.querySelectorAll('.form-group input')[0].value.trim(),
-    lastName:    form.querySelectorAll('.form-group input')[1].value.trim(),
-    email:       form.querySelector('input[type="email"]').value.trim(),
-    phone:       form.querySelector('input[type="tel"]').value.trim(),
-    sessionType: form.querySelectorAll('select')[0].value,
-    concern:     form.querySelectorAll('select')[1].value,
-    message:     form.querySelector('textarea').value.trim()
-  };
-
   try {
-    const API_BASE = 'https://apophero-backend.onrender.com';
+    const data = {
+      firstName:   document.getElementById('firstName').value.trim(),
+      lastName:    document.getElementById('lastName').value.trim(),
+      email:       document.getElementById('bookEmail').value.trim(),
+      phone:       document.getElementById('phone').value.trim(),
+      sessionType: document.getElementById('sessionType').value,
+      concern:     document.getElementById('concern').value,
+      notes:       document.getElementById('notes').value.trim()
+    };
 
-    const response = await fetch(`${API_BASE}/api/v1/bookings`, {
+    const res = await fetch('https://apophero-backend.onrender.com/api/v1/bookings', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(data)
     });
 
-    const result = await response.json();
+    const result = await res.json();
+    if (!result.success) throw new Error(result.message);
 
-    if (response.ok && result.success) {
-      // Success
-      btn.textContent = '✓ Booking Request Sent!';
-      btn.style.backgroundColor = 'var(--teal-dark)';
+    // Success
+    btn.textContent = '✓ Booking Request Sent!';
+    btn.style.background = 'var(--teal-dark)';
+    showToast('Booking confirmed! Reference: ' + result.data.bookingRef + ' 🎉');
+    e.target.reset();
 
-      showToast("Booking received! We'll confirm within 24 hours. 🎉");
-
-      // Reset form after success
-      setTimeout(() => {
-        form.reset();
-        btn.textContent = originalText;
-        btn.style.backgroundColor = '';
-        btn.disabled = false;
-      }, 4000);
-
-    } else {
-      throw new Error(result.message || 'Something went wrong');
-    }
-
-  } catch (error) {
-    console.error('Booking error:', error);
-
-    btn.textContent = '❌ Failed to send';
-    btn.style.backgroundColor = '#ef4444';
-
-    showToast('Failed to send booking. Please try again.', 'error');
-
-    // Reset button
-    setTimeout(() => {
-      btn.textContent = originalText;
-      btn.style.backgroundColor = '';
-      btn.disabled = false;
-    }, 4000);
+  } catch (err) {
+    btn.textContent = 'Request Booking →';
+    btn.style.background = '';
+    btn.disabled = false;
+    showToast(err.message || 'Something went wrong. Please try again.');
   }
 }
