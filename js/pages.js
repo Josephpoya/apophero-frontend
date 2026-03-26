@@ -641,10 +641,7 @@ function scrollToBookForm() {
 
 async function submitBooking(e) {
   e.preventDefault();
-
   const btn = document.getElementById('bookBtn');
-  const originalText = btn.textContent;
-
   btn.textContent = 'Sending…';
   btn.disabled = true;
 
@@ -659,37 +656,24 @@ async function submitBooking(e) {
       notes:       document.getElementById('notes').value.trim()
     };
 
-    console.log("📤 Sending booking data:", data);   // ← Debug log
-
     const res = await fetch('https://apophero-backend.onrender.com/api/v1/bookings', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(data)
     });
 
     const result = await res.json();
-    console.log("📥 Backend response:", result);     // ← Debug log
-
-    if (!result.success) {
-      throw new Error(result.message || 'Booking failed');
-    }
+    if (!result.success) throw new Error(result.message);
 
     // Success
     btn.textContent = '✓ Booking Request Sent!';
     btn.style.background = 'var(--teal-dark)';
-    showToast(`Booking confirmed! Reference: ${result.data.bookingRef} 🎉`);
-
+    showToast('Booking confirmed! Reference: ' + result.data.bookingRef + ' 🎉');
     e.target.reset();
 
-    setTimeout(() => {
-      btn.textContent = originalText;
-      btn.style.background = '';
-      btn.disabled = false;
-    }, 4000);
-
   } catch (err) {
-    console.error("❌ Booking error:", err);
-    btn.textContent = originalText;
+    btn.textContent = 'Request Booking →';
     btn.style.background = '';
     btn.disabled = false;
     showToast(err.message || 'Something went wrong. Please try again.');
