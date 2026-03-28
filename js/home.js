@@ -70,7 +70,8 @@ pages['home'] = function() {
       min-height:100vh; padding-top:var(--nav-h);
       display:grid; grid-template-columns:1fr 1fr;
       align-items:center;
-      background:linear-gradient(135deg,var(--sage) 0%,#c5cec8 100%);
+      background: linear-gradient(rgba(22,25,25,.55), rgba(22,25,25,.45)),
+            url('https://res.cloudinary.com/dl4fatwns/image/upload/v1774705326/StockCake-Pushing_Physical_Limits-4079449-standard_sde1vx.jpg') center/cover no-repeat;
       position:relative; overflow:hidden;
     }
     .home-hero::before {
