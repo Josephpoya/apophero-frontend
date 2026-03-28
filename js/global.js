@@ -57,7 +57,7 @@ const PRODUCTS = [
     desc: 'Take control of polycystic ovarian syndrome through targeted natural strategies — personalized to your body, your symptoms, your goals.',
     emoji: '🌸',
     gradient: 'linear-gradient(135deg,#A06046,#161919)',
-    link: `${API_BASE}/uploads/pcos-protocol.pdf`,
+    link: `https://res.cloudinary.com/dl4fatwns/image/upload/v1774693763/pcos_ch1p2x.pdf`,
     featured: true,
     tags: ['PCOS', 'Hormones', 'Women'],
     readTime: '50 min read'
