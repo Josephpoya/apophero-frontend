@@ -3,6 +3,8 @@
 ═══════════════════════════════════════════ */
 
 /* ── PRODUCTS DATA ── */
+const API_BASE = 'https://apophero-backend.onrender.com';
+
 const PRODUCTS = [
   {
     id: 'metabolic-blueprint',
@@ -13,7 +15,7 @@ const PRODUCTS = [
     desc: 'Rewire your metabolism for lasting results. No crash diets — just science-backed, sustainable strategy built around how your body actually works.',
     emoji: '⚖️',
     gradient: 'linear-gradient(135deg,#161919,#2a2e2e)',
-    link: 'https://payhip.com/Apopherohealth',
+    link: `${API_BASE}/uploads/metabolic-blueprint.pdf`,
     featured: true,
     tags: ['Metabolism', 'Fat Loss', 'Nutrition'],
     readTime: '45 min read'
@@ -27,7 +29,7 @@ const PRODUCTS = [
     desc: 'Simple, evidence-based lifestyle changes for optimal hormone health. Feel stronger, sharper, and more energetic — without medication.',
     emoji: '⚡',
     gradient: 'linear-gradient(135deg,#09C8B8,#07a89a)',
-    link: 'https://payhip.com/Apopherohealth',
+    link: `${API_BASE}/uploads/testosterone-guide.pdf`,
     featured: true,
     tags: ['Hormones', 'Energy', 'Performance'],
     readTime: '35 min read'
@@ -41,7 +43,7 @@ const PRODUCTS = [
     desc: 'A practical, discreet, and clinically-grounded guide to lasting longer and building sexual confidence — naturally and permanently.',
     emoji: '🛡️',
     gradient: 'linear-gradient(135deg,#A06046,#705C52)',
-    link: 'https://payhip.com/Apopherohealth',
+    link: `${API_BASE}/uploads/premature-ejaculation.pdf`,
     featured: false,
     tags: ['Sexual Health', 'Confidence', 'Natural'],
     readTime: '40 min read'
@@ -55,7 +57,7 @@ const PRODUCTS = [
     desc: 'Take control of polycystic ovarian syndrome through targeted natural strategies — personalized to your body, your symptoms, your goals.',
     emoji: '🌸',
     gradient: 'linear-gradient(135deg,#A06046,#161919)',
-    link: 'https://payhip.com/Apopherohealth',
+    link: `${API_BASE}/uploads/pcos-protocol.pdf`,
     featured: true,
     tags: ['PCOS', 'Hormones', 'Women'],
     readTime: '50 min read'
@@ -69,7 +71,7 @@ const PRODUCTS = [
     desc: 'Your essential guide to a healthy pregnancy — covering nutrition, movement, mental wellness, and optimal maternal-fetal outcomes.',
     emoji: '🤱',
     gradient: 'linear-gradient(135deg,#705C52,#A06046)',
-    link: 'https://payhip.com/Apopherohealth',
+    link: `${API_BASE}/uploads/antenatal-wellness.pdf`,
     featured: false,
     tags: ['Pregnancy', 'Maternal Health', 'Wellness'],
     readTime: '60 min read'
@@ -83,7 +85,7 @@ const PRODUCTS = [
     desc: 'Track your habits, moods, health goals, and monthly budget all in one beautifully designed journal. Build momentum, one day at a time.',
     emoji: '📔',
     gradient: 'linear-gradient(135deg,#848B8C,#705C52)',
-    link: 'https://payhip.com/Apopherohealth',
+    link: `${API_BASE}/uploads/wellness-journal.pdf`,
     featured: false,
     tags: ['Habits', 'Journaling', 'Budget'],
     readTime: 'Daily use'
@@ -97,7 +99,7 @@ const PRODUCTS = [
     desc: 'A personalized 3-month transformation plan to break free from compulsive behaviors and reclaim your focus, energy, and authentic confidence.',
     emoji: '🧠',
     gradient: 'linear-gradient(135deg,#161919,#848B8C)',
-    link: 'https://payhip.com/Apopherohealth',
+    link: `${API_BASE}/uploads/freedom-protocol.pdf`,
     featured: false,
     tags: ['Mental Health', 'Addiction', 'Transformation'],
     readTime: '3 Month Plan'
@@ -111,7 +113,7 @@ const PRODUCTS = [
     desc: 'Thirty practical, science-backed habits that fit into any schedule. Small changes that compound into extraordinary health over time.',
     emoji: '✨',
     gradient: 'linear-gradient(135deg,#09C8B8,#161919)',
-    link: 'https://payhip.com/Apopherohealth',
+    link: `${API_BASE}/uploads/wellness-habits.pdf`,
     featured: false,
     tags: ['Habits', 'Lifestyle', 'Productivity'],
     readTime: '25 min read'

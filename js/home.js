@@ -16,7 +16,7 @@ pages['home'] = function() {
         <div class="prod-card-desc">${p.desc}</div>
         <div class="prod-card-footer">
           <span class="prod-price">Free</span>
-          <a href="${p.link}" target="_blank" class="btn btn-dark btn-sm">Get It →</a>
+          <a href="${p.link}" download target="_blank" class="btn btn-dark btn-sm">⬇ Download Free</a>
         </div>
       </div>
     </div>`).join('');
@@ -260,7 +260,7 @@ pages['home'] = function() {
     </div>
     <div class="hero-right">
       <div class="hero-cards">
-        <div class="hero-card tall" onclick="navigate('shop')">
+        <div class="hero-card tall" onclick="window.open('${API_BASE}/uploads/metabolic-blueprint.pdf')" style="cursor:pointer">
           <div class="hero-card-img" style="background:linear-gradient(135deg,#161919,#2a2e2e)">⚖️</div>
           <div class="hero-card-body">
             <div class="hero-card-cat">Weight Management</div>

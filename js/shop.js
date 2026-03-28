@@ -34,7 +34,7 @@ pages['shop'] = function(filterParam) {
         <div style="font-size:.75rem;color:var(--slate);margin-bottom:1rem">📖 ${p.readTime}</div>
         <div class="prod-card-footer">
           <span class="prod-price">Free</span>
-          <a href="${p.link}" target="_blank" class="btn btn-dark btn-sm">Download →</a>
+          <a href="${p.link}" download target="_blank" class="btn btn-dark btn-sm">⬇ Download Free</a>
         </div>
       </div>
     </div>`).join('');
