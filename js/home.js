@@ -50,12 +50,11 @@ pages['home'] = function() {
       <p class="testi-quote">"${t.quote}"</p>
       <div class="testi-author">
         <div class="testi-avatar" style="${t.photo ? 'padding:0;overflow:hidden;background:#f0f0f0' : ''}">
-  ${t.photo
-    ? `<img src="${t.photo}" alt="${t.name}"
-            style="width:100%;height:100%;object-fit:cover;border-radius:50%">`
-    : t.init
-  }
-</div>
+          ${t.photo
+            ? `<img src="${t.photo}" alt="${t.name}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`
+            : t.init
+          }
+        </div>
         <div>
           <div class="testi-name">${t.name}</div>
           <div class="testi-role">${t.role}</div>
@@ -86,21 +85,10 @@ pages['home'] = function() {
       min-height:100vh; padding-top:var(--nav-h);
       display:grid; grid-template-columns:1fr 1fr;
       align-items:center;
-      background: linear-gradient(rgba(22,25,25,.55), rgba(22,25,25,.45)),
-            url('https://res.cloudinary.com/dl4fatwns/image/upload/v1774705326/StockCake-Pushing_Physical_Limits-4079449-standard_sde1vx.jpg') center/cover no-repeat;
+      background:
+        linear-gradient(to right, rgba(22,25,25,.90) 0%, rgba(22,25,25,.85) 45%, rgba(22,25,25,.35) 100%),
+        url('https://res.cloudinary.com/dl4fatwns/image/upload/v1774705326/StockCake-Pushing_Physical_Limits-4079449-standard_sde1vx.jpg') center/cover no-repeat;
       position:relative; overflow:hidden;
-    }
-    .home-hero::before {
-      content:''; position:absolute; top:-120px; right:-80px;
-      width:600px; height:600px; border-radius:50%;
-      background:radial-gradient(circle, rgba(9,200,184,.14) 0%, transparent 65%);
-      pointer-events:none;
-    }
-    .home-hero::after {
-      content:''; position:absolute; bottom:-100px; left:10%;
-      width:400px; height:400px; border-radius:50%;
-      background:radial-gradient(circle, rgba(160,96,70,.1) 0%, transparent 65%);
-      pointer-events:none;
     }
     .hero-left {
       padding:5rem 4% 5rem 8%;
@@ -108,22 +96,29 @@ pages['home'] = function() {
     }
     .hero-right {
       padding:4rem 8% 4rem 2%;
-      animation:fadeUp .9s .15s ease both; opacity:0;
-      animation-fill-mode:forwards;
+      animation:fadeUp .9s .15s ease both;
+      opacity:0; animation-fill-mode:forwards;
     }
     .hero-badge {
       display:inline-flex; align-items:center; gap:.5rem;
-      background:rgba(9,200,184,.12); border:1px solid rgba(9,200,184,.3);
-      color:var(--teal-dark); padding:.4rem 1.1rem; border-radius:100px;
+      background:rgba(9,200,184,.2); border:1px solid rgba(9,200,184,.5);
+      color:var(--teal); padding:.4rem 1.1rem; border-radius:100px;
       font-size:.75rem; font-weight:700; letter-spacing:.8px;
       text-transform:uppercase; margin-bottom:1.6rem;
     }
     .hero-badge::before { content:'●'; font-size:.45rem; }
-    .hero-h1 { margin-bottom:1.4rem; }
+    .hero-h1 {
+      margin-bottom:1.4rem;
+      color:#ffffff;
+      text-shadow:0 2px 12px rgba(0,0,0,.5);
+    }
     .hero-h1 em { font-style:italic; color:var(--teal); }
     .hero-sub {
-      font-size:1.05rem; color: var(--charcoal); line-height:1.75;
-      max-width:480px; margin-bottom:2.4rem;
+      font-size:1.05rem;
+      color:rgba(255,255,255,.9);
+      line-height:1.75;
+      max-width:480px; margin-bottom:2.4rem; font-weight:400;
+      text-shadow:0 1px 6px rgba(0,0,0,.6);
     }
     .hero-actions { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:2.8rem; }
     .hero-stats { display:flex; gap:2.2rem; flex-wrap:wrap; }
@@ -131,7 +126,12 @@ pages['home'] = function() {
       font-family:var(--font-display); font-size:2rem; font-weight:700;
       color:var(--teal); line-height:1;
     }
-    .hero-stat .lbl { font-size:.72rem; color: var(--charcoal); font-weight:500; margin-top:.25rem; }
+    .hero-stat .lbl {
+      font-size:.72rem;
+      color:rgba(255,255,255,.85);
+      font-weight:600; margin-top:.25rem;
+      text-shadow:0 1px 4px rgba(0,0,0,.5);
+    }
 
     /* floating product cards */
     .hero-cards { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
@@ -150,7 +150,7 @@ pages['home'] = function() {
     .hero-card.tall .hero-card-img { height:200px; }
     .hero-card-body { padding:1rem 1.1rem 1.2rem; }
     .hero-card-cat { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:var(--teal); margin-bottom:.3rem; }
-    .hero-card-title { font-family:var(--font-display); font-size:.95rem; font-weight:600; line-height:1.3; }
+    .hero-card-title { font-family:var(--font-display); font-size:.95rem; font-weight:600; line-height:1.3; color:var(--black); }
 
     /* ── TRUST BAR ── */
     .trust-bar {
@@ -243,7 +243,7 @@ pages['home'] = function() {
     .cta-stat .n { font-family:var(--font-display); font-size:2.2rem; font-weight:700; color:var(--teal); }
     .cta-stat .l { font-size:.75rem; color:rgba(255,255,255,.4); margin-top:.2rem; }
 
-    /* responsive */
+    /* ── RESPONSIVE ── */
     @media(max-width:960px) {
       .home-hero { grid-template-columns:1fr; min-height:auto; }
       .hero-left { padding:5rem 5% 2rem; }
@@ -261,13 +261,12 @@ pages['home'] = function() {
   <!-- HERO -->
   <section class="home-hero">
     <div class="hero-left">
-    <div class="hero-left" style="color:#fff">
       <div class="hero-badge">Evidence-Based Health Guidance</div>
       <h1 class="display-xl hero-h1">Reclaim Your Health.<br><em>On Your Terms.</em></h1>
       <p class="hero-sub">Personalized, private health protocols for weight loss, hormonal balance, and long-term wellness — backed by science, built for real life.</p>
       <div class="hero-actions">
         <a class="btn btn-primary btn-lg btn-arrow" onclick="navigate('shop')">Browse Free Guides</a>
-        <a class="btn btn-outline btn-lg" onclick="navigate('book')">Book a Consultation</a>
+        <a class="btn btn-outline-white btn-lg" onclick="navigate('book')">Book a Consultation</a>
       </div>
       <div class="hero-stats">
         <div class="hero-stat"><div class="num">8+</div><div class="lbl">Free Guides</div></div>
@@ -276,51 +275,52 @@ pages['home'] = function() {
         <div class="hero-stat"><div class="num">5★</div><div class="lbl">Rated</div></div>
       </div>
     </div>
+
     <div class="hero-right">
-    <div class="hero-cards">
-      <div class="hero-card tall" onclick="window.open('${PRODUCTS[0].link}')" style="cursor:pointer">
-        <div class="hero-card-img" style="background:${PRODUCTS[0].gradient};padding:0;overflow:hidden;position:relative">
-          ${PRODUCTS[0].coverImage
-            ? `<img src="${PRODUCTS[0].coverImage}" alt="${PRODUCTS[0].shortTitle}"
-                    style="width:100%;height:100%;object-fit:cover;display:block">`
-            : `<span style="font-size:2.5rem">${PRODUCTS[0].emoji}</span>`
-          }
+      <div class="hero-cards">
+        <div class="hero-card tall" onclick="window.open('${PRODUCTS[0].link}')" style="cursor:pointer">
+          <div class="hero-card-img" style="background:${PRODUCTS[0].gradient};padding:0;overflow:hidden;position:relative">
+            ${PRODUCTS[0].coverImage
+              ? `<img src="${PRODUCTS[0].coverImage}" alt="${PRODUCTS[0].shortTitle}"
+                      style="width:100%;height:100%;object-fit:cover;display:block">`
+              : `<span style="font-size:2.5rem">${PRODUCTS[0].emoji}</span>`
+            }
+          </div>
+          <div class="hero-card-body">
+            <div class="hero-card-cat">${PRODUCTS[0].category}</div>
+            <div class="hero-card-title">${PRODUCTS[0].shortTitle}</div>
+          </div>
         </div>
-        <div class="hero-card-body">
-          <div class="hero-card-cat">${PRODUCTS[0].category}</div>
-          <div class="hero-card-title">${PRODUCTS[0].shortTitle}</div>
-        </div>
-      </div>
 
-      <div class="hero-card" onclick="window.open('${PRODUCTS[1].link}')" style="cursor:pointer">
-        <div class="hero-card-img" style="background:${PRODUCTS[1].gradient};padding:0;overflow:hidden;position:relative">
-          ${PRODUCTS[1].coverImage
-            ? `<img src="${PRODUCTS[1].coverImage}" alt="${PRODUCTS[1].shortTitle}"
-                    style="width:100%;height:100%;object-fit:cover;display:block">`
-            : `<span style="font-size:2rem">${PRODUCTS[1].emoji}</span>`
-          }
+        <div class="hero-card" onclick="window.open('${PRODUCTS[1].link}')" style="cursor:pointer">
+          <div class="hero-card-img" style="background:${PRODUCTS[1].gradient};padding:0;overflow:hidden;position:relative">
+            ${PRODUCTS[1].coverImage
+              ? `<img src="${PRODUCTS[1].coverImage}" alt="${PRODUCTS[1].shortTitle}"
+                      style="width:100%;height:100%;object-fit:cover;display:block">`
+              : `<span style="font-size:2rem">${PRODUCTS[1].emoji}</span>`
+            }
+          </div>
+          <div class="hero-card-body">
+            <div class="hero-card-cat">${PRODUCTS[1].category}</div>
+            <div class="hero-card-title">${PRODUCTS[1].shortTitle}</div>
+          </div>
         </div>
-        <div class="hero-card-body">
-          <div class="hero-card-cat">${PRODUCTS[1].category}</div>
-          <div class="hero-card-title">${PRODUCTS[1].shortTitle}</div>
-        </div>
-      </div>
 
-      <div class="hero-card" onclick="window.open('${PRODUCTS[3].link}')" style="cursor:pointer">
-        <div class="hero-card-img" style="background:${PRODUCTS[3].gradient};padding:0;overflow:hidden;position:relative">
-          ${PRODUCTS[3].coverImage
-            ? `<img src="${PRODUCTS[3].coverImage}" alt="${PRODUCTS[3].shortTitle}"
-                    style="width:100%;height:100%;object-fit:cover;display:block">`
-            : `<span style="font-size:2rem">${PRODUCTS[3].emoji}</span>`
-          }
-        </div>
-        <div class="hero-card-body">
-          <div class="hero-card-cat">${PRODUCTS[3].category}</div>
-          <div class="hero-card-title">${PRODUCTS[3].shortTitle}</div>
+        <div class="hero-card" onclick="window.open('${PRODUCTS[3].link}')" style="cursor:pointer">
+          <div class="hero-card-img" style="background:${PRODUCTS[3].gradient};padding:0;overflow:hidden;position:relative">
+            ${PRODUCTS[3].coverImage
+              ? `<img src="${PRODUCTS[3].coverImage}" alt="${PRODUCTS[3].shortTitle}"
+                      style="width:100%;height:100%;object-fit:cover;display:block">`
+              : `<span style="font-size:2rem">${PRODUCTS[3].emoji}</span>`
+            }
+          </div>
+          <div class="hero-card-body">
+            <div class="hero-card-cat">${PRODUCTS[3].category}</div>
+            <div class="hero-card-title">${PRODUCTS[3].shortTitle}</div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   </section>
 
   <!-- TRUST BAR -->
