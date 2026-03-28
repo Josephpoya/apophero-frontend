@@ -244,7 +244,7 @@ pages['about'] = function() {
       </div>
     </div>
     <div class="about-hero-img reveal reveal-delay-1" style="padding:0;overflow:hidden">
-  <img src="https://res.cloudinary.com/dl4fatwns/image/upload/v1774713800/StockCake-Doctor_Patient_Interaction-92794-medium_xt6iiq.webp"
+  <img src="https://res.cloudinary.com/dl4fatwns/image/upload/v1774714778/StockCake-Doctor_Calms_Patient-3996148-medium_ev6rpg.webp"
        alt="Apophero Health"
        style="width:100%;height:100%;object-fit:cover">
 </div>
