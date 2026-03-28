@@ -71,7 +71,7 @@ const PRODUCTS = [
     desc: 'Your essential guide to a healthy pregnancy — covering nutrition, movement, mental wellness, and optimal maternal-fetal outcomes.',
     emoji: '🤱',
     gradient: 'linear-gradient(135deg,#705C52,#A06046)',
-    link: `${API_BASE}/uploads/antenatal-wellness.pdf`,
+    link: `https://res.cloudinary.com/dl4fatwns/image/upload/v1774692614/antenatal-wellness_lnc8h9.pdf`,
     featured: false,
     tags: ['Pregnancy', 'Maternal Health', 'Wellness'],
     readTime: '60 min read'
@@ -113,7 +113,7 @@ const PRODUCTS = [
     desc: 'Thirty practical, science-backed habits that fit into any schedule. Small changes that compound into extraordinary health over time.',
     emoji: '✨',
     gradient: 'linear-gradient(135deg,#09C8B8,#161919)',
-    link: `${API_BASE}/uploads/wellness-habits.pdf`,
+    link: `https://res.cloudinary.com/dl4fatwns/image/upload/v1774692631/wellness-habits_jcdtb7.pdf`,
     featured: false,
     tags: ['Habits', 'Lifestyle', 'Productivity'],
     readTime: '25 min read'
