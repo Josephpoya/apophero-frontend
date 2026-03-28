@@ -83,7 +83,7 @@ pages['home'] = function() {
       display:grid; grid-template-columns:1fr 1fr;
       align-items:center;
       background: linear-gradient(rgba(22,25,25,.55), rgba(22,25,25,.45)),
-            url('https://res.cloudinary.com/dl4fatwns/image/upload/v1774712789/StockCake-Strength_Through_Focus-4002242-standard_cwwe7r.jpg') center/cover no-repeat;
+            url('https://res.cloudinary.com/dl4fatwns/image/upload/v1774705326/StockCake-Pushing_Physical_Limits-4079449-standard_sde1vx.jpg') center/cover no-repeat;
       position:relative; overflow:hidden;
     }
     .home-hero::before {
