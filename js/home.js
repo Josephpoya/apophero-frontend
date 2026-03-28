@@ -6,9 +6,13 @@ pages['home'] = function() {
 
   const featuredCards = featured.map((p, i) => `
     <div class="prod-card reveal reveal-delay-${i+1}">
-      <div class="prod-card-img" style="background:${p.gradient}">
-        <span>${p.emoji}</span>
-        <span class="badge">Free</span>
+      <div class="prod-card-img" style="background:${p.gradient};padding:0;overflow:hidden;position:relative">
+        ${p.coverImage
+          ? `<img src="${p.coverImage}" alt="${p.title}"
+                  style="width:100%;height:100%;object-fit:cover;display:block">`
+          : `<span style="font-size:3rem">${p.emoji}</span>`
+        }
+        <span class="badge" style="position:absolute;top:12px;right:12px">Free</span>
       </div>
       <div class="prod-card-body">
         <div class="prod-card-cat">${p.category}</div>
@@ -273,30 +277,50 @@ pages['home'] = function() {
       </div>
     </div>
     <div class="hero-right">
-      <div class="hero-cards">
-        <div class="hero-card tall" onclick="window.open('${API_BASE}/uploads/metabolic-blueprint.pdf')" style="cursor:pointer">
-          <div class="hero-card-img" style="background:linear-gradient(135deg,#161919,#2a2e2e)">⚖️</div>
-          <div class="hero-card-body">
-            <div class="hero-card-cat">Weight Management</div>
-            <div class="hero-card-title">The Metabolic Blueprint</div>
-          </div>
+    <div class="hero-cards">
+      <div class="hero-card tall" onclick="window.open('${PRODUCTS[0].link}')" style="cursor:pointer">
+        <div class="hero-card-img" style="background:${PRODUCTS[0].gradient};padding:0;overflow:hidden;position:relative">
+          ${PRODUCTS[0].coverImage
+            ? `<img src="${PRODUCTS[0].coverImage}" alt="${PRODUCTS[0].shortTitle}"
+                    style="width:100%;height:100%;object-fit:cover;display:block">`
+            : `<span style="font-size:2.5rem">${PRODUCTS[0].emoji}</span>`
+          }
         </div>
-        <div class="hero-card" onclick="navigate('shop')">
-          <div class="hero-card-img" style="background:linear-gradient(135deg,#09C8B8,#07a89a)">⚡</div>
-          <div class="hero-card-body">
-            <div class="hero-card-cat">Men's Health</div>
-            <div class="hero-card-title">Boost Testosterone Naturally</div>
-          </div>
+        <div class="hero-card-body">
+          <div class="hero-card-cat">${PRODUCTS[0].category}</div>
+          <div class="hero-card-title">${PRODUCTS[0].shortTitle}</div>
         </div>
-        <div class="hero-card" onclick="navigate('shop')">
-          <div class="hero-card-img" style="background:linear-gradient(135deg,#A06046,#161919)">🌸</div>
-          <div class="hero-card-body">
-            <div class="hero-card-cat">Women's Health</div>
-            <div class="hero-card-title">PCOS Protocol</div>
-          </div>
+      </div>
+
+      <div class="hero-card" onclick="window.open('${PRODUCTS[1].link}')" style="cursor:pointer">
+        <div class="hero-card-img" style="background:${PRODUCTS[1].gradient};padding:0;overflow:hidden;position:relative">
+          ${PRODUCTS[1].coverImage
+            ? `<img src="${PRODUCTS[1].coverImage}" alt="${PRODUCTS[1].shortTitle}"
+                    style="width:100%;height:100%;object-fit:cover;display:block">`
+            : `<span style="font-size:2rem">${PRODUCTS[1].emoji}</span>`
+          }
+        </div>
+        <div class="hero-card-body">
+          <div class="hero-card-cat">${PRODUCTS[1].category}</div>
+          <div class="hero-card-title">${PRODUCTS[1].shortTitle}</div>
+        </div>
+      </div>
+
+      <div class="hero-card" onclick="window.open('${PRODUCTS[3].link}')" style="cursor:pointer">
+        <div class="hero-card-img" style="background:${PRODUCTS[3].gradient};padding:0;overflow:hidden;position:relative">
+          ${PRODUCTS[3].coverImage
+            ? `<img src="${PRODUCTS[3].coverImage}" alt="${PRODUCTS[3].shortTitle}"
+                    style="width:100%;height:100%;object-fit:cover;display:block">`
+            : `<span style="font-size:2rem">${PRODUCTS[3].emoji}</span>`
+          }
+        </div>
+        <div class="hero-card-body">
+          <div class="hero-card-cat">${PRODUCTS[3].category}</div>
+          <div class="hero-card-title">${PRODUCTS[3].shortTitle}</div>
         </div>
       </div>
     </div>
+  </div>
   </section>
 
   <!-- TRUST BAR -->
