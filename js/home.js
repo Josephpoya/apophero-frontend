@@ -82,8 +82,9 @@ pages['home'] = function() {
       min-height:100vh; padding-top:var(--nav-h);
       display:grid; grid-template-columns:1fr 1fr;
       align-items:center;
-      background: linear-gradient(rgba(22,25,25,.55), rgba(22,25,25,.45)),
-            url('https://res.cloudinary.com/dl4fatwns/image/upload/v1774705326/StockCake-Pushing_Physical_Limits-4079449-standard_sde1vx.jpg') center/cover no-repeat;
+      background:linear-gradient(135deg,var(--sage) 0%,#c5cec8 100%);
+position:relative;
+            url('https://res.cloudinary.com/dl4fatwns/image/upload/v1774712789/StockCake-Strength_Through_Focus-4002242-standard_cwwe7r.jpg') center/cover no-repeat;
       position:relative; overflow:hidden;
     }
     .home-hero::before {
@@ -118,7 +119,7 @@ pages['home'] = function() {
     .hero-h1 { margin-bottom:1.4rem; }
     .hero-h1 em { font-style:italic; color:var(--teal); }
     .hero-sub {
-      font-size:1.05rem; color:var(--warm-brown); line-height:1.75;
+      font-size:1.05rem; color: var(--charcoal); line-height:1.75;
       max-width:480px; margin-bottom:2.4rem;
     }
     .hero-actions { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:2.8rem; }
@@ -127,7 +128,7 @@ pages['home'] = function() {
       font-family:var(--font-display); font-size:2rem; font-weight:700;
       color:var(--teal); line-height:1;
     }
-    .hero-stat .lbl { font-size:.72rem; color:var(--warm-brown); font-weight:500; margin-top:.25rem; }
+    .hero-stat .lbl { font-size:.72rem; color: var(--charcoal); font-weight:500; margin-top:.25rem; }
 
     /* floating product cards */
     .hero-cards { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
