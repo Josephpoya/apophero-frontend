@@ -15,7 +15,7 @@ const PRODUCTS = [
     desc: 'Rewire your metabolism for lasting results. No crash diets — just science-backed, sustainable strategy built around how your body actually works.',
     emoji: '⚖️',
     gradient: 'linear-gradient(135deg,#161919,#2a2e2e)',
-    link: `${API_BASE}/uploads/metabolic-blueprint.pdf`,
+    link: `https://res.cloudinary.com/dl4fatwns/image/upload/v1774687007/metabolic-blueprint_nwz5du.pdf`,
     featured: true,
     tags: ['Metabolism', 'Fat Loss', 'Nutrition'],
     readTime: '45 min read'
@@ -29,7 +29,7 @@ const PRODUCTS = [
     desc: 'Simple, evidence-based lifestyle changes for optimal hormone health. Feel stronger, sharper, and more energetic — without medication.',
     emoji: '⚡',
     gradient: 'linear-gradient(135deg,#09C8B8,#07a89a)',
-    link: `${API_BASE}/uploads/testosterone-guide.pdf`,
+    link: `https://res.cloudinary.com/dl4fatwns/image/upload/v1774687006/testosterone-guide_uzqj8p.pdf`,
     featured: true,
     tags: ['Hormones', 'Energy', 'Performance'],
     readTime: '35 min read'
@@ -43,7 +43,7 @@ const PRODUCTS = [
     desc: 'A practical, discreet, and clinically-grounded guide to lasting longer and building sexual confidence — naturally and permanently.',
     emoji: '🛡️',
     gradient: 'linear-gradient(135deg,#A06046,#705C52)',
-    link: `${API_BASE}/uploads/premature-ejaculation.pdf`,
+    link: `https://res.cloudinary.com/dl4fatwns/image/upload/v1774687002/premature-ejaculation_wsvsut.pdf`,
     featured: false,
     tags: ['Sexual Health', 'Confidence', 'Natural'],
     readTime: '40 min read'
@@ -85,7 +85,7 @@ const PRODUCTS = [
     desc: 'Track your habits, moods, health goals, and monthly budget all in one beautifully designed journal. Build momentum, one day at a time.',
     emoji: '📔',
     gradient: 'linear-gradient(135deg,#848B8C,#705C52)',
-    link: `${API_BASE}/uploads/wellness-journal.pdf`,
+    link: `https://res.cloudinary.com/dl4fatwns/image/upload/v1774687003/wellness-journal_rylmyw.pdf`,
     featured: false,
     tags: ['Habits', 'Journaling', 'Budget'],
     readTime: 'Daily use'
@@ -99,7 +99,7 @@ const PRODUCTS = [
     desc: 'A personalized 3-month transformation plan to break free from compulsive behaviors and reclaim your focus, energy, and authentic confidence.',
     emoji: '🧠',
     gradient: 'linear-gradient(135deg,#161919,#848B8C)',
-    link: `${API_BASE}/uploads/freedom-protocol.pdf`,
+    link: `https://res.cloudinary.com/dl4fatwns/image/upload/v1774687002/freedom-protocol_pzmnoh.pdf`,
     featured: false,
     tags: ['Mental Health', 'Addiction', 'Transformation'],
     readTime: '3 Month Plan'
