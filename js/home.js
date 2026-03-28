@@ -23,23 +23,35 @@ pages['home'] = function() {
 
   const testimonials = [
     { init:'JM', name:'James M.', role:'Weight Loss Guide', stars:5,
+      photo: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774710082/StockCake-Confident_Business_Professional-3993867-medium_rzntmc.webp',
       quote:'The Metabolic Blueprint completely changed how I think about food. Lost 9kg in 3 months without feeling deprived once.' },
     { init:'DK', name:'David K.', role:'Testosterone Guide', stars:5,
+      photo: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774710082/StockCake-Confident_Business_Professional-3993867-medium_rzntmc.webp',
       quote:'Skeptical about a free guide actually helping — the testosterone protocol is genuinely thorough. Results after 6 weeks speak for themselves.' },
     { init:'AS', name:'Amara S.', role:'PCOS Protocol', stars:5,
+      photo: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774710082/StockCake-Minimalist_Digital_Beauty-2376223-medium_tgqbkg.jpg',
       quote:'More useful, actionable information than years of vague doctor advice. I finally understand my own body.' },
     { init:'RC', name:'Reuben C.', role:'PE Guide', stars:5,
+      photo: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774710082/StockCake-Confident_Business_Professional-3993867-medium_rzntmc.webp',
       quote:'Discreet, practical, and it actually works. The guide is thorough without being overwhelming. Completely changed my confidence.' },
     { init:'NK', name:'Nadia K.', role:'Antenatal Plan', stars:5,
+      photo: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774710082/StockCake-Minimalist_Digital_Beauty-2376223-medium_tgqbkg.jpg',
       quote:'The antenatal wellness plan gave me confidence throughout my entire pregnancy. Highly recommend to any expectant mother.' },
     { init:'BM', name:'Brian M.', role:'Freedom Protocol', stars:5,
+      photo: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774710082/StockCake-Confident_Business_Professional-3993867-medium_rzntmc.webp',
       quote:'3 months in and I genuinely feel like a different person. The structure of the program makes it actually achievable.' }
   ].map((t, i) => `
     <div class="testi-card reveal reveal-delay-${(i%3)+1}">
       <div class="testi-stars">${'★'.repeat(t.stars)}</div>
       <p class="testi-quote">"${t.quote}"</p>
       <div class="testi-author">
-        <div class="testi-avatar">${t.init}</div>
+        <div class="testi-avatar" style="${t.photo ? 'padding:0;overflow:hidden;background:#f0f0f0' : ''}">
+  ${t.photo
+    ? `<img src="${t.photo}" alt="${t.name}"
+            style="width:100%;height:100%;object-fit:cover;border-radius:50%">`
+    : t.init
+  }
+</div>
         <div>
           <div class="testi-name">${t.name}</div>
           <div class="testi-role">${t.role}</div>
@@ -245,6 +257,7 @@ pages['home'] = function() {
   <!-- HERO -->
   <section class="home-hero">
     <div class="hero-left">
+    <div class="hero-left" style="color:#fff">
       <div class="hero-badge">Evidence-Based Health Guidance</div>
       <h1 class="display-xl hero-h1">Reclaim Your Health.<br><em>On Your Terms.</em></h1>
       <p class="hero-sub">Personalized, private health protocols for weight loss, hormonal balance, and long-term wellness — backed by science, built for real life.</p>

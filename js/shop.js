@@ -20,10 +20,15 @@ pages['shop'] = function(filterParam) {
   const allCards = PRODUCTS.map((p, i) => `
     <div class="prod-card reveal reveal-delay-${i%3+1}" data-topic="${p.topic}"
          style="${(filterParam && filterParam!=='all' && p.topic!==filterParam)?'display:none':''}" >
-      <div class="prod-card-img" style="background:${p.gradient}">
-        <span>${p.emoji}</span>
-        <span class="badge">Free</span>
-      </div>
+      <div class="prod-card-img" style="background:${p.gradient};padding:0;overflow:hidden;position:relative">
+  ${p.coverImage
+    ? `<img src="${p.coverImage}" alt="${p.title}"
+            style="width:100%;height:100%;object-fit:cover;display:block"
+            onerror="this.style.display='none'">`
+    : `<span style="font-size:3rem">${p.emoji}</span>`
+  }
+  <span class="badge">Free</span>
+</div>
       <div class="prod-card-body">
         <div class="prod-card-cat">${p.category}</div>
         <div class="prod-card-title">${p.title}</div>

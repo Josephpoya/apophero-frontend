@@ -7,7 +7,14 @@ pages['blog'] = function() {
 
   const restCards = rest.map((p, i) => `
     <article class="blog-card reveal reveal-delay-${i%3+1}">
-      <div class="blog-card-img" style="background:${p.gradient}">${p.emoji}</div>
+      <div class="blog-card-img" style="background:${p.gradient};padding:0;overflow:hidden">
+  ${p.coverImage
+    ? `<img src="${p.coverImage}" alt="${p.title}"
+            style="width:100%;height:100%;object-fit:cover"
+            onerror="this.style.display='none'">`
+    : `<span style="font-size:3rem">${p.emoji}</span>`
+  }
+</div>
       <div class="blog-card-body">
         <div class="blog-meta">
           <span class="tag tag-teal">${p.category}</span>
@@ -93,7 +100,13 @@ pages['blog'] = function() {
     <div class="container">
       <div class="eyebrow" style="margin-bottom:1.2rem">Featured Article</div>
       <a class="blog-featured reveal" href="#">
-        <div class="blog-featured-img" style="background:${featured.gradient}">${featured.emoji}</div>
+        <div class="blog-featured-img" style="background:${featured.gradient};padding:0;overflow:hidden">
+  ${featured.coverImage
+    ? `<img src="${featured.coverImage}" alt="${featured.title}"
+            style="width:100%;height:100%;object-fit:cover">`
+    : `<span style="font-size:5rem">${featured.emoji}</span>`
+  }
+</div>
         <div class="blog-featured-body">
           <div class="blog-featured-tag"><span class="tag tag-teal">${featured.category}</span></div>
           <h2 class="blog-featured-title">${featured.title}</h2>
@@ -129,13 +142,25 @@ pages['about'] = function() {
   ];
 
   const team = [
-    { init:'AH', name:'Dr. A. Okello', role:'Founder & Lead Health Consultant', bg:'linear-gradient(135deg,#09C8B8,#07a89a)',
-      bio:'Trained physician with 10+ years in integrative and preventive health. Passionate about making evidence-based healthcare accessible to everyone.' },
-    { init:'SN', name:'Sarah Nakato', role:'Women\'s Health Specialist', bg:'linear-gradient(135deg,#A06046,#705C52)',
-      bio:'Specializes in hormonal health, PCOS management, and maternal wellness. Dedicated to empowering women to understand their bodies.' },
-    { init:'BK', name:'Brian Kiprotich', role:'Men\'s Health & Wellness Coach', bg:'linear-gradient(135deg,#161919,#2a2e2e)',
-      bio:'Expert in men\'s hormonal optimization, sexual health, and behavioral change. Advocates for breaking the silence around men\'s health challenges.' }
-  ];
+  {
+    name:  'Dr. W. Joseph',
+    role:  'Lead Health Consultant',
+    photo: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774706141/StockCake-Compassionate_Doctor_Care-3672013-medium_z3y55l.jpg',
+    bio:   'Trained physician with 10+ years in integrative and preventive health.'
+  },
+  {
+    name:  'Sarah Nakato',
+    role:  "Women's Health Specialist",
+    photo: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774706366/StockCake-Doctor_Consulting_Patients-933575-medium_waae7l.webp',
+    bio:   'Specializes in hormonal health, PCOS management, and maternal wellness.'
+  },
+  {
+    name:  'Brian Rotich',
+    role:  "Men's Health & Wellness Coach",
+    photo: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774706365/StockCake-Doctor_With_Patient-580693-medium_kwjn1o.jpg',
+    bio:   "Expert in men's hormonal optimization, sexual health, and behavioral change."
+  }
+];
 
   return `
   <style>
@@ -218,7 +243,11 @@ pages['about'] = function() {
         <a class="btn btn-outline" onclick="navigate('contact')">Get in Touch</a>
       </div>
     </div>
-    <div class="about-hero-img reveal reveal-delay-1">🏥</div>
+    <div class="about-hero-img reveal reveal-delay-1" style="padding:0;overflow:hidden">
+  <img src="https://res.cloudinary.com/dl4fatwns/image/upload/v1774706142/StockCake-Doctor_Consultation_Discussion-838917-medium_zwmti3.jpg"
+       alt="Apophero Health"
+       style="width:100%;height:100%;object-fit:cover">
+</div>
   </section>
 
   <!-- MISSION -->
@@ -267,7 +296,10 @@ pages['about'] = function() {
       <div class="team-grid">
         ${team.map((m,i)=>`
           <div class="team-card reveal reveal-delay-${i+1}">
-            <div class="team-avatar" style="background:${m.bg}">${m.init}</div>
+            <div class="team-avatar" style="background:#f0f0f0;padding:0;overflow:hidden">
+  <img src="${m.photo}" alt="${m.name}"
+       style="width:100%;height:100%;object-fit:cover;object-position:top">
+</div>
             <div class="team-body">
               <div class="team-name">${m.name}</div>
               <div class="team-role">${m.role}</div>
@@ -477,7 +509,8 @@ pages['book'] = function() {
   <style>
     .book-hero {
       padding:calc(var(--nav-h) + 5rem) 5% 4rem;
-      background:linear-gradient(135deg,var(--black) 0%,var(--charcoal) 100%);
+      background: linear-gradient(rgba(22,25,25,.75), rgba(22,25,25,.70)),
+            url('https://res.cloudinary.com/dl4fatwns/image/upload/v1774710455/StockCake-Online_Car_Reservation-997067-medium_yhspss.jpg') center/cover no-repeat;
       text-align:center; position:relative; overflow:hidden;
     }
     .book-hero::before {
