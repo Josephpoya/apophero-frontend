@@ -360,32 +360,54 @@ function initReveal() {
 }
 
 /* ── NAV ── */
+function toggleMobileMenu() {
+  const ham  = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  const isOpen = menu.classList.contains('open');
+  if (isOpen) {
+    closeMobileMenu();
+  } else {
+    ham.classList.add('open');
+    menu.classList.add('open');
+    document.body.classList.add('menu-open');
+  }
+}
+
+function closeMobileMenu() {
+  const ham  = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  ham?.classList.remove('open');
+  menu?.classList.remove('open');
+  document.body.classList.remove('menu-open');
+}
+
 function initNav() {
   const nav = document.getElementById('navbar');
-  const ham = document.getElementById('hamburger');
-  const mob = document.getElementById('mobileMenu');
 
+  // Scroll shadow
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 30);
   });
 
-  ham?.addEventListener('click', () => {
-    ham.classList.toggle('open');
-    mob.classList.toggle('open');
-    document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : '';
+  // Close menu on outside click
+  document.addEventListener('click', (e) => {
+    const menu = document.getElementById('mobileMenu');
+    const ham  = document.getElementById('hamburger');
+    if (menu?.classList.contains('open') &&
+        !menu.contains(e.target) &&
+        !ham?.contains(e.target)) {
+      closeMobileMenu();
+    }
   });
 
-  mob?.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      ham.classList.remove('open');
-      mob.classList.remove('open');
-      document.body.style.overflow = '';
-    });
+  // Close menu on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMobileMenu();
   });
 
-  // active link
+  // Active nav link
   const page = window.location.hash.replace('#','') || 'home';
-  document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => {
+  document.querySelectorAll('.nav-links a').forEach(a => {
     const href = a.getAttribute('href')?.replace('#','') || '';
     a.classList.toggle('active', href === page);
   });
@@ -414,29 +436,239 @@ function initNewsletter() {
 /* ── RENDER NAVBAR ── */
 function renderNav() {
   return `
+  <style>
+    /* ── MOBILE MENU OVERLAY ── */
+    .mobile-menu {
+      display:none;
+      position:fixed; inset:0; z-index:998;
+      background:var(--black);
+      flex-direction:column;
+      padding:0;
+      opacity:0; transform:translateX(100%);
+      transition:opacity .35s ease, transform .35s cubic-bezier(.4,0,.2,1);
+      pointer-events:none;
+      overflow-y:auto;
+    }
+    .mobile-menu.open {
+      opacity:1; transform:translateX(0);
+      pointer-events:all;
+    }
+    @media(max-width:960px) {
+      .mobile-menu { display:flex; }
+    }
+
+    /* header inside mobile menu */
+    .mob-header {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:1.2rem 5%;
+      border-bottom:1px solid rgba(255,255,255,.07);
+      position:sticky; top:0; background:var(--black); z-index:2;
+    }
+    .mob-logo {
+      font-family:var(--font-display); font-size:1.4rem; font-weight:700;
+      color:#fff; text-decoration:none;
+    }
+    .mob-logo span { color:var(--teal); }
+    .mob-close {
+      width:40px; height:40px; border-radius:50%;
+      background:rgba(255,255,255,.07); border:none; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      color:#fff; font-size:1.2rem;
+      transition:background .2s;
+    }
+    .mob-close:hover { background:rgba(255,255,255,.15); }
+
+    /* nav links */
+    .mob-nav {
+      padding:1.5rem 5%; flex:1;
+      display:flex; flex-direction:column;
+    }
+    .mob-link {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:1.1rem 0;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      text-decoration:none; cursor:pointer;
+      transition:padding-left .2s;
+    }
+    .mob-link:hover { padding-left:.5rem; }
+    .mob-link-left { display:flex; align-items:center; gap:1rem; }
+    .mob-link-icon {
+      width:40px; height:40px; border-radius:10px;
+      background:rgba(255,255,255,.06);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.1rem; flex-shrink:0;
+      transition:background .2s;
+    }
+    .mob-link:hover .mob-link-icon { background:rgba(9,200,184,.15); }
+    .mob-link-text { color:#fff; font-size:1.05rem; font-weight:600; }
+    .mob-link-sub { color:rgba(255,255,255,.4); font-size:.75rem; margin-top:.15rem; }
+    .mob-link-arrow { color:rgba(255,255,255,.25); font-size:1rem; transition:color .2s, transform .2s; }
+    .mob-link:hover .mob-link-arrow { color:var(--teal); transform:translateX(4px); }
+
+    /* CTA button */
+    .mob-cta {
+      margin:1.5rem 5% 2rem;
+      display:block; text-align:center;
+      background:var(--teal); color:#fff;
+      padding:1rem; border-radius:var(--radius-md);
+      font-size:1rem; font-weight:700;
+      text-decoration:none; cursor:pointer;
+      transition:background .2s, transform .15s;
+      box-shadow:0 4px 20px rgba(9,200,184,.3);
+    }
+    .mob-cta:hover { background:var(--teal-dark); transform:translateY(-1px); }
+
+    /* social + footer */
+    .mob-footer {
+      padding:1.5rem 5% 3rem;
+      border-top:1px solid rgba(255,255,255,.07);
+    }
+    .mob-social-label {
+      font-size:.7rem; font-weight:700; letter-spacing:1px;
+      text-transform:uppercase; color:rgba(255,255,255,.3);
+      margin-bottom:1rem;
+    }
+    .mob-social-row { display:flex; gap:.7rem; }
+    .mob-social-btn {
+      width:40px; height:40px; border-radius:50%;
+      background:rgba(255,255,255,.07); border:none; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      color:rgba(255,255,255,.5); font-size:.9rem; text-decoration:none;
+      transition:background .2s, color .2s;
+    }
+    .mob-social-btn:hover { background:var(--teal); color:#fff; }
+    .mob-copy {
+      font-size:.72rem; color:rgba(255,255,255,.2);
+      margin-top:1.5rem;
+    }
+
+    /* hamburger */
+    .hamburger {
+      display:none; flex-direction:column;
+      justify-content:center; gap:5px;
+      width:40px; height:40px; cursor:pointer;
+      background:rgba(22,25,25,.08); border-radius:8px;
+      padding:8px; border:none;
+    }
+    @media(max-width:960px) { .hamburger { display:flex; } }
+    .hamburger span {
+      display:block; height:2px; border-radius:2px;
+      background:var(--black); transition:all .3s ease;
+    }
+    .hamburger span:nth-child(1) { width:100%; }
+    .hamburger span:nth-child(2) { width:70%; }
+    .hamburger span:nth-child(3) { width:100%; }
+    .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); width:100%; }
+    .hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); width:100%; }
+
+    /* body lock when menu open */
+    body.menu-open { overflow:hidden; }
+  </style>
+
   <nav id="navbar">
     <a href="#home" class="nav-logo" onclick="navigate('home')">Apophero <span>Health</span></a>
     <ul class="nav-links">
-      <li><a href="#home" onclick="navigate('home')">Home</a></li>
-      <li><a href="#shop" onclick="navigate('shop')">Shop</a></li>
-      <li><a href="#blog" onclick="navigate('blog')">Blog</a></li>
+      <li><a href="#home"  onclick="navigate('home')">Home</a></li>
+      <li><a href="#shop"  onclick="navigate('shop')">Shop</a></li>
+      <li><a href="#blog"  onclick="navigate('blog')">Blog</a></li>
       <li><a href="#about" onclick="navigate('about')">About</a></li>
       <li><a href="#contact" onclick="navigate('contact')">Contact</a></li>
     </ul>
     <div class="nav-actions">
       <a class="btn btn-nav" href="#book" onclick="navigate('book')">Book Consultation</a>
     </div>
-    <div class="hamburger" id="hamburger">
+    <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileMenu()">
       <span></span><span></span><span></span>
-    </div>
+    </button>
   </nav>
+
+  <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#home" onclick="navigate('home')">Home</a>
-    <a href="#shop" onclick="navigate('shop')">Shop</a>
-    <a href="#blog" onclick="navigate('blog')">Blog</a>
-    <a href="#about" onclick="navigate('about')">About</a>
-    <a href="#contact" onclick="navigate('contact')">Contact</a>
-    <a href="#book" onclick="navigate('book')">Book Consultation</a>
+
+    <!-- Header -->
+    <div class="mob-header">
+      <a class="mob-logo" onclick="closeMobileMenu(); navigate('home')">
+        Apophero <span>Health</span>
+      </a>
+      <button class="mob-close" onclick="closeMobileMenu()" aria-label="Close menu">✕</button>
+    </div>
+
+    <!-- Nav Links -->
+    <nav class="mob-nav">
+      <a class="mob-link" onclick="closeMobileMenu(); navigate('home')">
+        <div class="mob-link-left">
+          <div class="mob-link-icon">🏠</div>
+          <div>
+            <div class="mob-link-text">Home</div>
+            <div class="mob-link-sub">Back to homepage</div>
+          </div>
+        </div>
+        <span class="mob-link-arrow">→</span>
+      </a>
+
+      <a class="mob-link" onclick="closeMobileMenu(); navigate('shop')">
+        <div class="mob-link-left">
+          <div class="mob-link-icon">📚</div>
+          <div>
+            <div class="mob-link-text">Shop</div>
+            <div class="mob-link-sub">Browse all free guides</div>
+          </div>
+        </div>
+        <span class="mob-link-arrow">→</span>
+      </a>
+
+      <a class="mob-link" onclick="closeMobileMenu(); navigate('blog')">
+        <div class="mob-link-left">
+          <div class="mob-link-icon">✍️</div>
+          <div>
+            <div class="mob-link-text">Blog</div>
+            <div class="mob-link-sub">Health articles & tips</div>
+          </div>
+        </div>
+        <span class="mob-link-arrow">→</span>
+      </a>
+
+      <a class="mob-link" onclick="closeMobileMenu(); navigate('about')">
+        <div class="mob-link-left">
+          <div class="mob-link-icon">👥</div>
+          <div>
+            <div class="mob-link-text">About Us</div>
+            <div class="mob-link-sub">Our story & team</div>
+          </div>
+        </div>
+        <span class="mob-link-arrow">→</span>
+      </a>
+
+      <a class="mob-link" onclick="closeMobileMenu(); navigate('contact')">
+        <div class="mob-link-left">
+          <div class="mob-link-icon">✉️</div>
+          <div>
+            <div class="mob-link-text">Contact</div>
+            <div class="mob-link-sub">Get in touch with us</div>
+          </div>
+        </div>
+        <span class="mob-link-arrow">→</span>
+      </a>
+    </nav>
+
+    <!-- CTA -->
+    <a class="mob-cta" onclick="closeMobileMenu(); navigate('book')">
+      📅 Book a Free Consultation →
+    </a>
+
+    <!-- Footer -->
+    <div class="mob-footer">
+      <div class="mob-social-label">Follow Us</div>
+      <div class="mob-social-row">
+        <a href="#" class="mob-social-btn" aria-label="LinkedIn">in</a>
+        <a href="#" class="mob-social-btn" aria-label="Twitter">𝕏</a>
+        <a href="#" class="mob-social-btn" aria-label="Facebook">f</a>
+        <a href="#" class="mob-social-btn" aria-label="Instagram">◎</a>
+      </div>
+      <div class="mob-copy">© 2026 Apophero Health. All rights reserved.</div>
+    </div>
+
   </div>`;
 }
 
