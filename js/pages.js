@@ -498,6 +498,297 @@ async function submitContact(e) {
 }
 
 /* ═══════════════════════════════════════════
+   ARTICLE PAGE
+═══════════════════════════════════════════ */
+pages['article'] = function(postId) {
+  const post = BLOG_POSTS.find(p => p.id === postId);
+
+  if (!post) {
+    return `
+      <div style="padding:calc(var(--nav-h) + 5rem) 5% 6rem;text-align:center">
+        <div style="font-size:4rem;margin-bottom:1rem">📄</div>
+        <h2 style="font-family:var(--font-display);font-size:2rem;margin-bottom:1rem">Article Not Found</h2>
+        <p style="color:var(--warm-brown);margin-bottom:2rem">This article doesn't exist or may have been moved.</p>
+        <a class="btn btn-primary" onclick="navigate('blog')">← Back to Blog</a>
+      </div>`;
+  }
+
+  // Related posts — same topic, exclude current
+  const related = BLOG_POSTS
+    .filter(p => p.id !== post.id && p.topic === post.topic)
+    .slice(0, 3);
+
+  const relatedCards = related.length > 0 ? related.map(p => `
+    <article class="rel-card" onclick="navigate('article','${p.id}')">
+      <div class="rel-card-img" style="background:${p.gradient}">
+        ${p.coverImage
+          ? `<img src="${p.coverImage}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover">`
+          : `<span style="font-size:2rem">${p.emoji}</span>`
+        }
+      </div>
+      <div class="rel-card-body">
+        <div class="rel-card-cat">${p.category}</div>
+        <div class="rel-card-title">${p.title}</div>
+        <div class="rel-card-meta">${p.date} · ${p.readTime}</div>
+      </div>
+    </article>`).join('') : '';
+
+  return `
+  <style>
+    .article-hero {
+      padding:calc(var(--nav-h) + 3rem) 5% 0;
+      background:linear-gradient(135deg,var(--sage) 0%,#c5cec8 100%);
+    }
+    .article-hero-inner {
+      max-width:800px; margin:0 auto; padding-bottom:3rem;
+    }
+    .article-back {
+      display:inline-flex; align-items:center; gap:.5rem;
+      color:var(--warm-brown); font-size:.85rem; font-weight:600;
+      cursor:pointer; margin-bottom:2rem;
+      transition:color .2s, gap .2s;
+      background:none; border:none; padding:0;
+    }
+    .article-back:hover { color:var(--teal); gap:.8rem; }
+    .article-cats { display:flex; gap:.6rem; margin-bottom:1.2rem; flex-wrap:wrap; }
+    .article-hero-title {
+      font-family:var(--font-display);
+      font-size:clamp(2rem,4vw,3rem);
+      font-weight:700; line-height:1.15;
+      color:var(--black); margin-bottom:1.4rem;
+    }
+    .article-meta {
+      display:flex; align-items:center; gap:1.5rem;
+      flex-wrap:wrap; padding-bottom:2rem;
+    }
+    .article-author {
+      display:flex; align-items:center; gap:.75rem;
+    }
+    .article-author-avatar {
+      width:44px; height:44px; border-radius:50%;
+      background:var(--teal-light); color:var(--teal-dark);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:700; font-size:.9rem; flex-shrink:0;
+    }
+    .article-author-name { font-weight:600; font-size:.88rem; color:var(--black); }
+    .article-author-role { font-size:.74rem; color:var(--slate); }
+    .article-meta-divider { width:1px; height:32px; background:var(--border); }
+    .article-meta-info { font-size:.82rem; color:var(--slate); }
+    .article-cover {
+      width:100%; max-width:800px; margin:0 auto;
+      height:420px; overflow:hidden; border-radius:var(--radius-xl) var(--radius-xl) 0 0;
+      display:flex; align-items:center; justify-content:center;
+      font-size:6rem;
+    }
+    .article-cover img { width:100%; height:100%; object-fit:cover; display:block; }
+
+    /* Article content */
+    .article-layout {
+      max-width:800px; margin:0 auto;
+      padding:3.5rem 5% 5rem;
+    }
+    .article-body { line-height:1.85; color:var(--black); }
+    .article-body h2 {
+      font-family:var(--font-display);
+      font-size:clamp(1.4rem,2.5vw,1.9rem);
+      font-weight:700; color:var(--black);
+      margin:2.5rem 0 1rem;
+      padding-bottom:.6rem;
+      border-bottom:2px solid var(--teal-light);
+    }
+    .article-body h3 {
+      font-family:var(--font-display);
+      font-size:1.2rem; font-weight:600;
+      color:var(--black); margin:2rem 0 .7rem;
+    }
+    .article-body p {
+      font-size:1.02rem; margin-bottom:1.4rem;
+      color:#2a2a2a; line-height:1.85;
+    }
+    .article-body ul, .article-body ol {
+      margin:1rem 0 1.5rem 1.5rem;
+    }
+    .article-body li {
+      font-size:1rem; margin-bottom:.6rem;
+      color:#2a2a2a; line-height:1.7;
+    }
+    .article-body blockquote {
+      border-left:4px solid var(--teal);
+      padding:.8rem 1.5rem;
+      margin:2rem 0;
+      background:var(--teal-light);
+      border-radius:0 var(--radius-md) var(--radius-md) 0;
+      font-style:italic; color:var(--warm-brown);
+      font-size:1.05rem;
+    }
+    .article-body strong { color:var(--black); font-weight:700; }
+    .article-body a { color:var(--teal); text-decoration:underline; }
+
+    /* Key takeaway box */
+    .article-takeaway {
+      background:var(--black); color:#fff;
+      border-radius:var(--radius-lg); padding:2rem 2.5rem;
+      margin:3rem 0;
+    }
+    .article-takeaway h4 {
+      font-family:var(--font-display); font-size:1.2rem;
+      color:var(--teal); margin-bottom:1rem;
+    }
+    .article-takeaway ul { margin-left:1.2rem; }
+    .article-takeaway li { color:rgba(255,255,255,.8); margin-bottom:.5rem; font-size:.92rem; }
+
+    /* Share strip */
+    .article-share {
+      display:flex; align-items:center; gap:1rem;
+      padding:1.8rem 0; margin:2rem 0;
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+      flex-wrap:wrap;
+    }
+    .article-share-label { font-size:.82rem; font-weight:700; color:var(--black); }
+    .share-btn {
+      padding:.5rem 1.1rem; border-radius:var(--radius-sm);
+      font-size:.78rem; font-weight:600; cursor:pointer;
+      border:1.5px solid var(--border); background:var(--white);
+      color:var(--black); transition:all .2s;
+    }
+    .share-btn:hover { background:var(--black); color:#fff; border-color:var(--black); }
+
+    /* CTA box */
+    .article-cta {
+      background:linear-gradient(135deg,var(--teal) 0%,var(--teal-dark) 100%);
+      border-radius:var(--radius-xl); padding:2.5rem;
+      text-align:center; margin:3rem 0;
+    }
+    .article-cta h3 {
+      font-family:var(--font-display); font-size:1.6rem;
+      color:#fff; margin-bottom:.8rem;
+    }
+    .article-cta p { color:rgba(255,255,255,.8); margin-bottom:1.5rem; font-size:.95rem; }
+    .article-cta-actions { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+
+    /* Related posts */
+    .related-section {
+      background:var(--sage); padding:4rem 5%;
+    }
+    .related-grid {
+      display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+      gap:1.5rem; margin-top:2rem;
+    }
+    .rel-card {
+      background:var(--white); border-radius:var(--radius-lg);
+      overflow:hidden; border:1.5px solid var(--border);
+      cursor:pointer; transition:transform .25s, box-shadow .25s;
+    }
+    .rel-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-lg); }
+    .rel-card-img {
+      height:160px; display:flex; align-items:center; justify-content:center;
+      font-size:2.5rem; overflow:hidden;
+    }
+    .rel-card-body { padding:1.2rem; }
+    .rel-card-cat { font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:var(--teal); margin-bottom:.4rem; }
+    .rel-card-title { font-family:var(--font-display); font-size:1rem; font-weight:600; line-height:1.35; margin-bottom:.5rem; }
+    .rel-card-meta { font-size:.74rem; color:var(--slate); }
+
+    @media(max-width:768px) {
+      .article-cover { height:260px; border-radius:var(--radius-lg) var(--radius-lg) 0 0; }
+      .article-layout { padding:2.5rem 5% 4rem; }
+      .article-meta { gap:1rem; }
+      .article-meta-divider { display:none; }
+    }
+  </style>
+
+  <!-- HERO -->
+  <div class="article-hero">
+    <div class="article-hero-inner">
+      <button class="article-back" onclick="navigate('blog')">← Back to Blog</button>
+      <div class="article-cats">
+        <span class="tag tag-teal">${post.category}</span>
+        <span class="tag tag-sage">${post.readTime}</span>
+      </div>
+      <h1 class="article-hero-title">${post.title}</h1>
+      <div class="article-meta">
+        <div class="article-author">
+          <div class="article-author-avatar">${post.author?.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+          <div>
+            <div class="article-author-name">${post.author}</div>
+            <div class="article-author-role">${post.authorRole}</div>
+          </div>
+        </div>
+        <div class="article-meta-divider"></div>
+        <div class="article-meta-info">📅 ${post.date}</div>
+        <div class="article-meta-divider"></div>
+        <div class="article-meta-info">⏱ ${post.readTime}</div>
+      </div>
+    </div>
+
+    <!-- Cover Image -->
+    <div class="article-cover" style="${!post.coverImage ? `background:${post.gradient}` : ''}">
+      ${post.coverImage
+        ? `<img src="${post.coverImage}" alt="${post.title}">`
+        : `<span>${post.emoji}</span>`
+      }
+    </div>
+  </div>
+
+  <!-- ARTICLE BODY -->
+  <div class="article-layout">
+    <div class="article-body">
+      ${post.content}
+    </div>
+
+    <!-- CTA Box -->
+    <div class="article-cta">
+      <h3>Ready to Take Action?</h3>
+      <p>Download our free health guides and start your transformation today. No cost, no commitment.</p>
+      <div class="article-cta-actions">
+        <a class="btn btn-dark btn-lg" onclick="navigate('shop')">Browse Free Guides →</a>
+        <a class="btn btn-outline-white btn-lg" onclick="navigate('book')">Book a Consultation</a>
+      </div>
+    </div>
+
+    <!-- Share -->
+    <div class="article-share">
+      <span class="article-share-label">Share this article:</span>
+      <button class="share-btn" onclick="shareArticle('twitter','${post.title}')">𝕏 Twitter</button>
+      <button class="share-btn" onclick="shareArticle('facebook','${post.title}')">f Facebook</button>
+      <button class="share-btn" onclick="shareArticle('whatsapp','${post.title}')">💬 WhatsApp</button>
+      <button class="share-btn" onclick="copyArticleLink()">🔗 Copy Link</button>
+    </div>
+  </div>
+
+  <!-- RELATED POSTS -->
+  ${relatedCards ? `
+  <section class="related-section">
+    <div class="container">
+      <div class="eyebrow" style="margin-bottom:.6rem">Keep Reading</div>
+      <h2 class="display-sm">Related Articles</h2>
+      <div class="related-grid">${relatedCards}</div>
+    </div>
+  </section>` : ''}
+
+  ${renderNewsletter()}`;
+};
+
+// Share helpers
+function shareArticle(platform, title) {
+  const url = encodeURIComponent(window.location.href);
+  const text = encodeURIComponent(title + ' — Apophero Health');
+  const urls = {
+    twitter:  `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+    whatsapp: `https://wa.me/?text=${text}%20${url}`
+  };
+  window.open(urls[platform], '_blank');
+}
+
+function copyArticleLink() {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    showToast('Link copied to clipboard! 🔗');
+  });
+}
+
+/* ═══════════════════════════════════════════
    BOOK CONSULTATION PAGE
 ═══════════════════════════════════════════ */
 pages['book'] = function() {

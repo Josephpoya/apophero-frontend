@@ -271,74 +271,118 @@ const BLOG_POSTS = [
   {
     id: 'metabolism-myths',
     title: '5 Metabolism Myths That Are Keeping You Fat',
-    coverImage: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774705355/StockCake-Fitness_Tracker_Check-571421-standard_mk6u4x.jpg',
     excerpt: 'Everything you\'ve been told about metabolism and weight loss is probably wrong. Here\'s what the science actually says.',
     category: 'Weight Loss',
     topic: 'weight',
     emoji: '🔥',
     date: 'March 15, 2026',
     readTime: '8 min read',
-    gradient: 'linear-gradient(135deg,#161919,#2a2e2e)'
+    gradient: 'linear-gradient(135deg,#161919,#2a2e2e)',
+    coverImage: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774705355/StockCake-Fitness_Tracker_Check-571421-standard_mk6u4x.jpg',  // add your Cloudinary URL here
+    author: 'Dr. A. Okello',
+    authorRole: 'Lead Health Consultant',
+    content: `
+      <p>Write your full article content here. You can use HTML tags for formatting.</p>
+      <h2>Your First Section Heading</h2>
+      <p>Your section content goes here...</p>
+      <h2>Your Second Section Heading</h2>
+      <p>More content here...</p>
+    `
   },
   {
     id: 'testosterone-foods',
     title: 'The 10 Best Foods to Naturally Boost Testosterone',
-    coverImage: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774709499/StockCake-Colorful_Street_Food-937121-medium_dcy6ti.jpg',
     excerpt: 'What you eat directly shapes your hormone levels. These ten foods are backed by clinical studies to raise T naturally.',
     category: "Men's Health",
     topic: 'hormones',
     emoji: '⚡',
     date: 'March 8, 2026',
     readTime: '6 min read',
-    gradient: 'linear-gradient(135deg,#09C8B8,#07a89a)'
+    gradient: 'linear-gradient(135deg,#09C8B8,#07a89a)',
+    coverImage: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774705353/StockCake-Power_Through_Training-3854265-medium_din36c.jpg',
+    author: 'Brian Kiprotich',
+    authorRole: "Men's Health Coach",
+    content: `
+      <p>Write your full article content here.</p>
+      <h2>1. Fatty Fish</h2>
+      <p>Your content here...</p>
+    `
   },
   {
     id: 'pcos-lifestyle',
     title: 'How Lifestyle Changes Can Reverse PCOS Symptoms',
-    coverImage: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774709675/StockCake-Woman_feeling_distressed-1374140-medium_bpd3an.webp',
-    excerpt: 'PCOS doesn\'t have to be a life sentence. Mounting evidence shows lifestyle interventions can dramatically reduce — and even reverse — symptoms.',
+    excerpt: 'PCOS doesn\'t have to be a life sentence. Mounting evidence shows lifestyle interventions can dramatically reduce symptoms.',
     category: "Women's Health",
     topic: 'hormones',
     emoji: '🌸',
     date: 'February 28, 2026',
     readTime: '10 min read',
-    gradient: 'linear-gradient(135deg,#A06046,#705C52)'
+    gradient: 'linear-gradient(135deg,#A06046,#705C52)',
+    coverImage: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774709675/StockCake-Woman_feeling_distressed-1374140-medium_bpd3an.webp',
+    author: 'Sarah Nakato',
+    authorRole: "Women's Health Specialist",
+    content: `
+      <p>Write your full article content here.</p>
+      <h2>Understanding PCOS</h2>
+      <p>Your content here...</p>
+    `
   },
   {
     id: 'sleep-hormones',
     title: 'Why Sleep Is Your Most Powerful Hormone Regulator',
-    coverImage: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774709498/StockCake-Peaceful_Nighttime_Rest-3809725-medium_b46wdl.webp',
-    excerpt: 'Poor sleep is silently destroying your hormonal health. Here\'s the science behind sleep and what to do about it tonight.',
+    excerpt: 'Poor sleep is silently destroying your hormonal health. Here\'s the science and what to do about it tonight.',
     category: 'Wellness',
     topic: 'wellness',
     emoji: '🌙',
     date: 'February 20, 2026',
     readTime: '7 min read',
-    gradient: 'linear-gradient(135deg,#848B8C,#161919)'
+    gradient: 'linear-gradient(135deg,#848B8C,#161919)',
+    coverImage: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774709498/StockCake-Peaceful_Nighttime_Rest-3809725-medium_b46wdl.webp',
+    author: 'Dr. A. Okello',
+    authorRole: 'Lead Health Consultant',
+    content: `
+      <p>Write your full article content here.</p>
+      <h2>The Sleep-Hormone Connection</h2>
+      <p>Your content here...</p>
+    `
   },
   {
     id: 'stress-weight',
     title: 'The Hidden Link Between Chronic Stress and Weight Gain',
-    coverImage: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774709497/StockCake-Indulgent_Food_Fest-776050-medium_e5he4h.webp',
-    excerpt: 'Cortisol doesn\'t just make you anxious — it\'s actively making you store fat. Understanding this connection is the first step to breaking the cycle.',
+    excerpt: 'Cortisol doesn\'t just make you anxious — it\'s actively making you store fat.',
     category: 'Weight Loss',
     topic: 'weight',
     emoji: '🧬',
     date: 'February 12, 2026',
     readTime: '9 min read',
-    gradient: 'linear-gradient(135deg,#705C52,#A06046)'
+    gradient: 'linear-gradient(135deg,#705C52,#A06046)',
+    coverImage: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774709497/StockCake-Indulgent_Food_Fest-776050-medium_e5he4h.webp',
+    author: 'Dr. A. Okello',
+    authorRole: 'Lead Health Consultant',
+    content: `
+      <p>Write your full article content here.</p>
+      <h2>How Cortisol Drives Fat Storage</h2>
+      <p>Your content here...</p>
+    `
   },
   {
     id: 'morning-routine',
     title: 'The 20-Minute Morning Routine That Changes Everything',
-    coverImage: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774705356/StockCake-Sculpted_Strength_Defined-4049072-standard_mneleh.jpg',
-    excerpt: 'You don\'t need two hours of morning rituals. These five focused practices can transform your energy, focus, and health — in just 20 minutes.',
+    excerpt: 'You don\'t need two hours of morning rituals. These five focused practices can transform your energy and health.',
     category: 'Wellness',
     topic: 'wellness',
     emoji: '☀️',
     date: 'February 5, 2026',
     readTime: '5 min read',
-    gradient: 'linear-gradient(135deg,#09C8B8,#A06046)'
+    gradient: 'linear-gradient(135deg,#09C8B8,#A06046)',
+    coverImage: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774705356/StockCake-Sculpted_Strength_Defined-4049072-standard_mneleh.jpg',
+    author: 'Sarah Nakato',
+    authorRole: "Women's Health Specialist",
+    content: `
+      <p>Write your full article content here.</p>
+      <h2>Step 1: Hydration First</h2>
+      <p>Your content here...</p>
+    `
   }
 ];
 
