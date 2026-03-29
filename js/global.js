@@ -616,7 +616,7 @@ function renderNav() {
       <li><a href="#home"  onclick="navigate('home')">Home</a></li>
       <li><a href="#shop"  onclick="navigate('shop')">Shop</a></li>
       <li><a href="#blog"  onclick="navigate('blog')">Blog</a></li>
-      <li><a href="#about" onclick="navigate('about')">About</a></li>
+      <li><a href="#about" onclick="navigate('about')">About Us</a></li>
       <li><a href="#contact" onclick="navigate('contact')">Contact</a></li>
     </ul>
     <div class="nav-actions">
@@ -656,7 +656,7 @@ function renderNav() {
           <div class="mob-link-icon">📚</div>
           <div>
             <div class="mob-link-text">Shop</div>
-            <div class="mob-link-sub">Browse all free guides</div>
+            <div class="mob-link-sub">Browse all treatments</div>
           </div>
         </div>
         <span class="mob-link-arrow">→</span>
@@ -774,7 +774,7 @@ function renderNewsletter() {
   <section class="newsletter-strip">
     <div>
       <h2>Get Free Health Guides<br>Straight to Your Inbox</h2>
-      <p>Join thousands taking control of their health. No spam, ever.</p>
+      <p>Join thousands taking control of their health.</p>
     </div>
     <form class="newsletter-form" onsubmit="handleNewsletter(event)">
       <input type="email" placeholder="Your email address" required>

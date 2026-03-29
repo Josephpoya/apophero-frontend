@@ -92,7 +92,7 @@ pages['blog'] = function() {
     <div class="eyebrow" style="display:block;margin-bottom:.8rem">Health Knowledge</div>
     <h1 class="display-lg">The Apophero Blog</h1>
     <p class="lead" style="max-width:540px;margin:1rem auto 0">
-      Evidence-based articles on weight loss, hormonal health, men's and women's wellness — written in plain language.
+      Evidence-based well researched articles on weight loss, hormonal health, men's and women's wellness written in plain language.
     </p>
   </div>
 
@@ -135,10 +135,10 @@ pages['about'] = function() {
   const values = [
     { icon:'🔬', title:'Evidence-Based', desc:'Every recommendation is grounded in peer-reviewed research. We never publish advice without scientific backing.' },
     { icon:'🔒', title:'Private & Secure', desc:'Your health information is deeply personal. We guarantee 100% confidentiality across all our services.' },
-    { icon:'🎯', title:'Personalized', desc:'Generic advice rarely works. Every guide and consultation is tailored to your specific condition, goals, and preferences.' },
+    { icon:'🎯', title:'Personalized', desc:'Generic advice rarely works. Every health guide/program and consultation is tailored to your specific condition, goals, and preferences.' },
     { icon:'🌱', title:'Natural-First', desc:'We prioritize lifestyle and natural interventions before jumping to medications or invasive treatments.' },
     { icon:'💬', title:'Accessible', desc:'All our foundational resources are free. We believe quality health education should not be gated by income.' },
-    { icon:'🤝', title:'Compassionate', desc:'Health struggles can feel isolating. We approach every topic — no matter how sensitive — with empathy and zero judgment.' }
+    { icon:'🤝', title:'Compassionate', desc:'Health struggles can feel isolating. We approach every topic no matter how sensitive with empathy and zero judgment.' }
   ];
 
   const team = [
@@ -236,8 +236,8 @@ pages['about'] = function() {
     <div class="reveal">
       <div class="eyebrow" style="margin-bottom:.8rem">Our Story</div>
       <h1 class="display-lg">Health Should Be<br>Personal. Private.<br>Empowering.</h1>
-      <p class="lead">We started Apophero Health because too many people struggle with health challenges in silence — unable to find practical, personalized guidance without expensive consultations or judgment.</p>
-      <p class="lead">Our mission is simple: give every person access to the knowledge and support they need to transform their health — free, private, and on their own terms.</p>
+      <p class="lead">We started Apophero Health because too many people struggle with health challenges in silence unable to find practical, personalized guidance without expensive consultations or judgment.</p>
+      <p class="lead">Our mission is simple: give every person access to the treatment, knowledge and support they need to transform their health free, private, and on their own terms.</p>
       <div style="display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap">
         <a class="btn btn-primary" onclick="navigate('shop')">Browse Our Guides</a>
         <a class="btn btn-outline" onclick="navigate('contact')">Get in Touch</a>
@@ -255,11 +255,11 @@ pages['about'] = function() {
     <div class="reveal">
       <div class="eyebrow" style="color:var(--teal);margin-bottom:.8rem">Our Mission</div>
       <h2 class="display-md">Complete, Convenient Healthcare</h2>
-      <p>We empower you with expert-guided insights and treatments, actionable guides and programs, and well-researched health articles — all in one place.</p>
-      <p>Every recommendation is customized to your condition, goals, and preferences. We combine education, natural treatment options, and personal support into a cohesive framework that actually works.</p>
+      <p>We empower you with expert-guided insights and treatments, actionable guides and programs, and well-researched health articles all in one place.</p>
+      <p>Every recommendation is customized to your condition, goals, and preferences. We combine medical and natural treatment options, health education, and personal support into a cohesive framework that actually works.</p>
     </div>
     <div class="mission-stat-grid reveal reveal-delay-1">
-      <div class="mission-stat"><div class="num">8+</div><div class="lbl">Free Health Guides</div></div>
+      <div class="mission-stat"><div class="num">8+</div><div class="lbl">Health Guides & Programs</div></div>
       <div class="mission-stat"><div class="num">100%</div><div class="lbl">Private & Confidential</div></div>
       <div class="mission-stat"><div class="num">1:1</div><div class="lbl">Personal Counselling</div></div>
       <div class="mission-stat"><div class="num">5★</div><div class="lbl">Client Satisfaction</div></div>
@@ -360,19 +360,19 @@ pages['contact'] = function() {
         <div class="contact-info-card reveal">
           <div class="eyebrow" style="color:var(--teal);margin-bottom:.8rem">Contact Info</div>
           <h2 class="display-sm">Let's Talk Health</h2>
-          <p>Whether you have a question about our guides, want to book a consultation, or just need direction — we're here for you.</p>
+          <p>Whether you have a question about our health guides & plans, want to book a consultation, or just need direction we're here for you.</p>
           <div class="contact-detail">
             <div class="contact-icon">📧</div>
             <div>
               <div class="contact-detail-label">Email</div>
-              <div class="contact-detail-val">hello@apopherohealth.com</div>
+              <div class="contact-detail-val">apopherohealth@gmail.com</div>
             </div>
           </div>
           <div class="contact-detail">
             <div class="contact-icon">💬</div>
             <div>
               <div class="contact-detail-label">WhatsApp</div>
-              <div class="contact-detail-val">+256 700 000 000</div>
+              <div class="contact-detail-val">+256 761 702 168</div>
             </div>
           </div>
           <div class="contact-detail">
@@ -423,7 +423,7 @@ pages['contact'] = function() {
               <label class="form-label">Subject *</label>
               <select class="form-select form-input" id="contactSubject" required>
   <option value="">Select a topic…</option>
-  <option value="Question about a guide">Question about a guide</option>
+  <option value="Question about a guide">Question about a health guide/program/treatment</option>
   <option value="Book a consultation">Book a consultation</option>
   <option value="Technical issue">Technical issue</option>
   <option value="Feedback or suggestion">Feedback or suggestion</option>
@@ -740,9 +740,9 @@ pages['article'] = function(postId) {
     <!-- CTA Box -->
     <div class="article-cta">
       <h3>Ready to Take Action?</h3>
-      <p>Download our free health guides and start your transformation today. No cost, no commitment.</p>
+      <p>Download our health guides and programs to start your transformation today. No cost, no commitment.</p>
       <div class="article-cta-actions">
-        <a class="btn btn-dark btn-lg" onclick="navigate('shop')">Browse Free Guides →</a>
+        <a class="btn btn-dark btn-lg" onclick="navigate('shop')">Browse Health Guides →</a>
         <a class="btn btn-outline-white btn-lg" onclick="navigate('book')">Book a Consultation</a>
       </div>
     </div>

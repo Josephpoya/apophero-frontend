@@ -21,7 +21,7 @@ pages['home'] = function() {
         <div class="prod-card-footer">
           <span class="prod-price">Free</span>
           <button onclick="showDownloadModal(PRODUCTS.find(x=>x.id==='${p.id}'))"
-  class="btn btn-dark btn-sm">⬇ Download Free</button>
+  class="btn btn-dark btn-sm">⬇ Download</button>
         </div>
       </div>
     </div>`).join('');
@@ -64,7 +64,7 @@ pages['home'] = function() {
     </div>`).join('');
 
   const faqs = [
-    { q:'Are all the guides really free?', a:'Yes — every guide on Apophero Health is completely free to download. We believe everyone deserves access to quality health information regardless of budget.' },
+    { q:'Are all the health guides and programs really free?', a:'You are welcome to enjoy many health guides and programs for free though a few premium ones do require payment. We believe everyone deserves access to quality health information regardless of budget.' },
     { q:'What makes your guides different from generic health advice?', a:'Our guides are personalized frameworks, not generic lists. Each one gives you a structured protocol tailored to a specific condition, with practical steps you can start today.' },
     { q:'Do I need a medical background to understand the guides?', a:'Not at all. Every guide is written in plain language for real people. We translate complex health science into simple, actionable steps.' },
     { q:'Can I book a 1-on-1 consultation?', a:'Absolutely. Our consultation service gives you personalized guidance, answers to your specific questions, and an accountability partner on your health journey. Visit the Book a Consultation page to get started.' },
@@ -378,13 +378,13 @@ pages['home'] = function() {
     <div class="hero-left">
       <div class="hero-badge">Evidence-Based Health Guidance</div>
       <h1 class="display-xl hero-h1">Reclaim Your Health.<br><em>On Your Terms.</em></h1>
-      <p class="hero-sub">Personalized, private health protocols for weight loss, hormonal balance, and long-term wellness — backed by science, built for real life.</p>
+      <p class="hero-sub">Personalized, private health protocols for weight loss, hormonal balance, and long-term wellness backed by science, built for real life.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary btn-lg btn-arrow" onclick="navigate('shop')">Browse Free Guides</a>
+        <a class="btn btn-primary btn-lg btn-arrow" onclick="navigate('shop')">Browse Health Guides</a>
         <a class="btn btn-outline-white btn-lg" onclick="navigate('book')">Book a Consultation</a>
       </div>
       <div class="hero-stats">
-        <div class="hero-stat"><div class="num">8+</div><div class="lbl">Free Guides</div></div>
+        <div class="hero-stat"><div class="num">8+</div><div class="lbl">Treatments</div></div>
         <div class="hero-stat"><div class="num">100%</div><div class="lbl">Private & Secure</div></div>
         <div class="hero-stat"><div class="num">1:1</div><div class="lbl">Counselling</div></div>
         <div class="hero-stat"><div class="num">5★</div><div class="lbl">Rated</div></div>
@@ -408,7 +408,7 @@ pages['home'] = function() {
             <div class="hero-card-cat">${PRODUCTS[0].category}</div>
             <div class="hero-card-title">${PRODUCTS[0].shortTitle}</div>
             <div class="hero-card-desc">${PRODUCTS[0].desc.slice(0,80)}…</div>
-            <button onclick="event.stopPropagation(); showDownloadModal(PRODUCTS[0])" class="hero-dl-btn">⬇ Download Free</button>
+            <button onclick="event.stopPropagation(); showDownloadModal(PRODUCTS[0])" class="hero-dl-btn">⬇ Download</button>
           </div>
         </div>
 
@@ -509,13 +509,14 @@ pages['home'] = function() {
       <div class="how-grid">
         <div class="how-card reveal">
           <div class="how-num">01</div>
-          <h3>Download Your Free Guide</h3>
-          <p>Start with one of our research-backed health guides tailored to your specific concern — weight, hormones, reproductive health, or general wellness.</p>
+          <h3>Understand Your Body</h3>
+          <p>Start with a Free or Premium Guide. Choose a guide based on your goal weight loss, hormones, gut health, or general wellness or go striaght to book a consultation inorder to get clarity on your symptoms, root causes, and what to do next</p>
         </div>
         <div class="how-card reveal reveal-delay-1">
           <div class="how-num">02</div>
-          <h3>Follow Your Protocol</h3>
-          <p>Apply the step-by-step framework at your own pace. Every recommendation is practical, natural-first, and built to fit a real, busy life.</p>
+          <h3>Take Action</h3>
+          <p>Follow a Proven Health Plan. Apply a structured, step-by-step protocol designed to restore your health naturally and effectively.
+This may include lifestyle changes, nutrition, and targeted supplementation.</p>
         </div>
         <div class="how-card reveal reveal-delay-2">
           <div class="how-num">03</div>
@@ -532,9 +533,9 @@ pages['home'] = function() {
       <div class="section-header reveal" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem">
         <div>
           <div class="eyebrow">Featured Resources</div>
-          <h2 class="display-md" style="margin-top:.6rem">Guides Built for Real Results</h2>
+          <h2 class="display-md" style="margin-top:.6rem">Treatment Plans Built for Real Results</h2>
         </div>
-        <a class="btn btn-outline btn-arrow" onclick="navigate('shop')">View All Guides</a>
+        <a class="btn btn-outline btn-arrow" onclick="navigate('shop')">View All Plans</a>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem">
         ${featuredCards}
@@ -570,15 +571,15 @@ pages['home'] = function() {
   <section class="cta-strip">
     <div>
       <h2 class="display-md">Ready to Start<br>Your Health Journey?</h2>
-      <p>Download any of our free guides, or book a private 1-on-1 consultation. Your health transformation starts with one step.</p>
+      <p>Download any of our free guides or programs, or book a private 1-on-1 consultation. Your health transformation starts with one step.</p>
       <div class="cta-stat-row">
-        <div class="cta-stat"><div class="n">8+</div><div class="l">Free Resources</div></div>
-        <div class="cta-stat"><div class="n">100%</div><div class="l">Free Forever</div></div>
+        <div class="cta-stat"><div class="n">8+</div><div class="l">Resources</div></div>
+        <div class="cta-stat"><div class="n">100%</div><div class="l">Trusted</div></div>
         <div class="cta-stat"><div class="n">1:1</div><div class="l">Counselling</div></div>
       </div>
     </div>
     <div class="cta-strip-actions reveal">
-      <a class="btn btn-primary btn-lg btn-arrow" onclick="navigate('shop')">Browse All Free Guides</a>
+      <a class="btn btn-primary btn-lg btn-arrow" onclick="navigate('shop')">Browse All Treatment Plans</a>
       <a class="btn btn-outline-white btn-lg" onclick="navigate('book')">Book a Consultation</a>
       <a class="btn btn-outline-white" onclick="navigate('contact')">Get in Touch →</a>
     </div>

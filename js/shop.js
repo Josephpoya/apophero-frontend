@@ -80,7 +80,7 @@ pages['shop'] = function(filterParam) {
     <div class="eyebrow" style="display:block;margin-bottom:.8rem">Free Health Resources</div>
     <h1 class="display-lg">All Our Guides</h1>
     <p class="lead" style="max-width:550px;margin:1rem auto 0">
-      Every guide is free, downloadable, and grounded in science. Filter by topic to find exactly what you need.
+      Every treatment, health guide and program is grounded in science. Filter by topic to find exactly what you need.
     </p>
   </div>
 
