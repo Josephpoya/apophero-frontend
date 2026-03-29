@@ -467,11 +467,11 @@ pages['home'] = function() {
         <span class="trust-sep">✦</span>
         <span class="trust-item"><span class="trust-dot"></span> 1-on-1 Counselling Available</span>
         <span class="trust-sep">✦</span>
-        <span class="trust-item"><span class="trust-dot"></span> Always Free to Download</span>
+        <span class="trust-item"><span class="trust-dot"></span> Ongoing Clinical Support</span>
         <span class="trust-sep">✦</span>
         <span class="trust-item"><span class="trust-dot"></span> Science-Backed & Proven</span>
         <span class="trust-sep">✦</span>
-        <span class="trust-item"><span class="trust-dot"></span> No Prescriptions Needed</span>
+        <span class="trust-item"><span class="trust-dot"></span> Innovative Treatments</span>
         <span class="trust-sep">✦</span>
         <span class="trust-item"><span class="trust-dot"></span> Trusted by Thousands</span>
         <span class="trust-sep">✦</span>
@@ -486,11 +486,11 @@ pages['home'] = function() {
         <span class="trust-sep">✦</span>
         <span class="trust-item"><span class="trust-dot"></span> 1-on-1 Counselling Available</span>
         <span class="trust-sep">✦</span>
-        <span class="trust-item"><span class="trust-dot"></span> Always Free to Download</span>
+        <span class="trust-item"><span class="trust-dot"></span> Ongoing Clinical Support</span>
         <span class="trust-sep">✦</span>
         <span class="trust-item"><span class="trust-dot"></span> Science-Backed & Proven</span>
         <span class="trust-sep">✦</span>
-        <span class="trust-item"><span class="trust-dot"></span> No Prescriptions Needed</span>
+        <span class="trust-item"><span class="trust-dot"></span> Innovative Treatments</span>
         <span class="trust-sep">✦</span>
         <span class="trust-item"><span class="trust-dot"></span> Trusted by Thousands</span>
         <span class="trust-sep">✦</span>
