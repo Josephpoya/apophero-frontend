@@ -226,12 +226,54 @@ pages['home'] = function() {
     .hero-card-wide:hover .hero-wide-arrow { background:var(--teal); color:#fff; border-color:var(--teal); }
 
     /* ── TRUST BAR ── */
+    /* ── SLIDING TRUST BAR ── */
     .trust-bar {
-      background:var(--black); padding:1.2rem 5%;
-      display:flex; align-items:center; justify-content:center; gap:3rem; flex-wrap:wrap;
+      background:var(--black);
+      padding:.9rem 0;
+      overflow:hidden;
+      position:relative;
+      border-top:1px solid rgba(255,255,255,.06);
+      border-bottom:1px solid rgba(255,255,255,.06);
     }
-    .trust-item { display:flex; align-items:center; gap:.6rem; color:rgba(255,255,255,.65); font-size:.82rem; font-weight:500; }
-    .trust-dot { width:6px; height:6px; border-radius:50%; background:var(--teal); flex-shrink:0; }
+    .trust-bar::before,
+    .trust-bar::after {
+      content:''; position:absolute; top:0; bottom:0; z-index:2; width:80px;
+      pointer-events:none;
+    }
+    .trust-bar::before {
+      left:0;
+      background:linear-gradient(to right, var(--black), transparent);
+    }
+    .trust-bar::after {
+      right:0;
+      background:linear-gradient(to left, var(--black), transparent);
+    }
+    .marquee-track {
+      display:flex; width:max-content;
+      animation: marquee 28s linear infinite;
+    }
+    .marquee-track:hover { animation-play-state:paused; }
+    .marquee-content {
+      display:flex; align-items:center; gap:0; white-space:nowrap;
+    }
+    .trust-item {
+      display:inline-flex; align-items:center; gap:.55rem;
+      color:rgba(255,255,255,.7); font-size:.82rem; font-weight:500;
+      padding:0 1.8rem;
+      transition:color .2s;
+    }
+    .trust-item:hover { color:var(--teal); }
+    .trust-dot {
+      width:5px; height:5px; border-radius:50%;
+      background:var(--teal); flex-shrink:0;
+    }
+    .trust-sep {
+      color:rgba(255,255,255,.2); font-size:.7rem; flex-shrink:0;
+    }
+    @keyframes marquee {
+      from { transform:translateX(0); }
+      to   { transform:translateX(-50%); }
+    }
 
     /* ── HOW IT WORKS ── */
     .how-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; }
@@ -413,12 +455,47 @@ pages['home'] = function() {
   </section>
 
   <!-- TRUST BAR -->
+  <!-- TRUST BAR — SLIDING MARQUEE -->
   <div class="trust-bar">
-    <div class="trust-item"><span class="trust-dot"></span> 100% Private & Confidential</div>
-    <div class="trust-item"><span class="trust-dot"></span> Evidence-Based Protocols</div>
-    <div class="trust-item"><span class="trust-dot"></span> Personalized to Your Goals</div>
-    <div class="trust-item"><span class="trust-dot"></span> 1-on-1 Counselling Available</div>
-    <div class="trust-item"><span class="trust-dot"></span> Always Free to Download</div>
+    <div class="marquee-track">
+      <div class="marquee-content">
+        <span class="trust-item"><span class="trust-dot"></span> 100% Private & Confidential</span>
+        <span class="trust-sep">✦</span>
+        <span class="trust-item"><span class="trust-dot"></span> Evidence-Based Protocols</span>
+        <span class="trust-sep">✦</span>
+        <span class="trust-item"><span class="trust-dot"></span> Personalized to Your Goals</span>
+        <span class="trust-sep">✦</span>
+        <span class="trust-item"><span class="trust-dot"></span> 1-on-1 Counselling Available</span>
+        <span class="trust-sep">✦</span>
+        <span class="trust-item"><span class="trust-dot"></span> Always Free to Download</span>
+        <span class="trust-sep">✦</span>
+        <span class="trust-item"><span class="trust-dot"></span> Science-Backed & Proven</span>
+        <span class="trust-sep">✦</span>
+        <span class="trust-item"><span class="trust-dot"></span> No Prescriptions Needed</span>
+        <span class="trust-sep">✦</span>
+        <span class="trust-item"><span class="trust-dot"></span> Trusted by Thousands</span>
+        <span class="trust-sep">✦</span>
+      </div>
+      <!-- Duplicate for seamless loop -->
+      <div class="marquee-content" aria-hidden="true">
+        <span class="trust-item"><span class="trust-dot"></span> 100% Private & Confidential</span>
+        <span class="trust-sep">✦</span>
+        <span class="trust-item"><span class="trust-dot"></span> Evidence-Based Protocols</span>
+        <span class="trust-sep">✦</span>
+        <span class="trust-item"><span class="trust-dot"></span> Personalized to Your Goals</span>
+        <span class="trust-sep">✦</span>
+        <span class="trust-item"><span class="trust-dot"></span> 1-on-1 Counselling Available</span>
+        <span class="trust-sep">✦</span>
+        <span class="trust-item"><span class="trust-dot"></span> Always Free to Download</span>
+        <span class="trust-sep">✦</span>
+        <span class="trust-item"><span class="trust-dot"></span> Science-Backed & Proven</span>
+        <span class="trust-sep">✦</span>
+        <span class="trust-item"><span class="trust-dot"></span> No Prescriptions Needed</span>
+        <span class="trust-sep">✦</span>
+        <span class="trust-item"><span class="trust-dot"></span> Trusted by Thousands</span>
+        <span class="trust-sep">✦</span>
+      </div>
+    </div>
   </div>
 
   <!-- HOW IT WORKS -->
