@@ -22,7 +22,7 @@ pages['blog'] = function() {
         </div>
         <h3 class="blog-card-title">${p.title}</h3>
         <p class="blog-card-excerpt">${p.excerpt}</p>
-        <a class="blog-read-link" href="#">Read Article →</a>
+        <a class="blog-read-link" onclick="navigate('article','${p.id}')">Read Article →</a>
       </div>
     </article>`).join('');
 
@@ -99,7 +99,7 @@ pages['blog'] = function() {
   <section class="section-pad">
     <div class="container">
       <div class="eyebrow" style="margin-bottom:1.2rem">Featured Article</div>
-      <a class="blog-featured reveal" href="#">
+      <a class="blog-featured reveal" onclick="navigate('article','${featured.id}')" style="cursor:pointer">
         <div class="blog-featured-img" style="background:${featured.gradient};padding:0;overflow:hidden">
   ${featured.coverImage
     ? `<img src="${featured.coverImage}" alt="${featured.title}"

@@ -85,15 +85,12 @@
     }
 
     function navigate(page, param) {
-      if (page === window._currentPage && !param) return;
-      window._currentPage = page;
-
-      // smooth transition
-      const app = document.getElementById('app');
-      app.classList.add('transitioning');
-
-      setTimeout(() => {
-        window.location.hash = page;
+  if (page === window._currentPage && !param) return;
+  window._currentPage = page;
+  const app = document.getElementById('app');
+  app.classList.add('transitioning');
+  setTimeout(() => {
+    window.location.hash = param ? `${page}/${param}` : page;
         window.scrollTo({ top: 0 });
 
         // render page
@@ -120,9 +117,12 @@
 
     /* ── HASH ROUTING ── */
     window.addEventListener('hashchange', () => {
-      const page = getPage();
-      if (page !== window._currentPage) navigate(page);
-    });
+  const hash  = window.location.hash.replace('#','');
+  const parts = hash.split('/');
+  const page  = parts[0] || 'home';
+  const param = parts[1] || null;
+  if (page !== window._currentPage) navigate(page, param);
+});
 
     /* ── BOOT ── */
     window.addEventListener('load', () => {
