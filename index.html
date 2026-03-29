@@ -77,6 +77,7 @@
   <script src="js/home.js"></script>
   <script src="js/shop.js"></script>
   <script src="js/pages.js"></script>
+  <script src="js/admin.js"></script>
 
   <script>
     /* ── ROUTER ── */
@@ -85,17 +86,24 @@
     }
 
     function navigate(page, param) {
-  if (page === window._currentPage && !param) return;
-  window._currentPage = page;
-  const app = document.getElementById('app');
-  app.classList.add('transitioning');
-  setTimeout(() => {
-    window.location.hash = param ? `${page}/${param}` : page;
+      if (page === window._currentPage && !param) return;
+      window._currentPage = page;
+
+      // smooth transition
+      const app = document.getElementById('app');
+      app.classList.add('transitioning');
+
+      setTimeout(() => {
+        window.location.hash = page;
         window.scrollTo({ top: 0 });
 
         // render page
         if (pages[page]) {
           app.innerHTML = pages[page](param) + renderFooter();
+          // Auto-load admin overview after shell renders
+          if (page === 'admin' && typeof adminNavigate === 'function' && typeof isAdminLoggedIn === 'function' && isAdminLoggedIn()) {
+            setTimeout(() => adminNavigate('overview'), 200);
+          }
         } else {
           app.innerHTML = `<div style="padding:calc(var(--nav-h) + 5rem) 5% 6rem;text-align:center">
             <div style="font-size:4rem;margin-bottom:1rem">404</div>
@@ -117,12 +125,9 @@
 
     /* ── HASH ROUTING ── */
     window.addEventListener('hashchange', () => {
-  const hash  = window.location.hash.replace('#','');
-  const parts = hash.split('/');
-  const page  = parts[0] || 'home';
-  const param = parts[1] || null;
-  if (page !== window._currentPage) navigate(page, param);
-});
+      const page = getPage();
+      if (page !== window._currentPage) navigate(page);
+    });
 
     /* ── BOOT ── */
     window.addEventListener('load', () => {
