@@ -40,7 +40,7 @@ pages['shop'] = function(filterParam) {
         <div class="prod-card-footer">
           <span class="prod-price">Free</span>
           <button onclick="showDownloadModal(PRODUCTS.find(x=>x.id==='${p.id}'))"
-  class="btn btn-dark btn-sm">⬇ Download Free</button>
+  class="btn btn-dark btn-sm">⬇ Download</button>
         </div>
       </div>
     </div>`).join('');
