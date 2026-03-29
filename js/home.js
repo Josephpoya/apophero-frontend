@@ -366,7 +366,7 @@ pages['home'] = function() {
             <div class="hero-card-cat">${PRODUCTS[0].category}</div>
             <div class="hero-card-title">${PRODUCTS[0].shortTitle}</div>
             <div class="hero-card-desc">${PRODUCTS[0].desc.slice(0,80)}…</div>
-            <a href="${PRODUCTS[0].link}" download class="hero-dl-btn">⬇ Download Free</a>
+            <button onclick="event.stopPropagation(); showDownloadModal(PRODUCTS[0])" class="hero-dl-btn">⬇ Download Free</button>
           </div>
         </div>
 
@@ -374,7 +374,7 @@ pages['home'] = function() {
         <div class="hero-col">
 
           <!-- CARD 2 -->
-          <div class="hero-card-wide" onclick="showDownloadModal(PRODUCTS[0])">
+          <div class="hero-card-wide" onclick="showDownloadModal(PRODUCTS[1])">
             <div class="hero-card-wide-media">
               ${PRODUCTS[1].coverImage
                 ? `<img src="${PRODUCTS[1].coverImage}" alt="${PRODUCTS[1].shortTitle}">`
@@ -391,7 +391,7 @@ pages['home'] = function() {
           </div>
 
           <!-- CARD 3 -->
-          <div class="hero-card-wide" onclick="showDownloadModal(PRODUCTS[0])">
+          <div class="hero-card-wide" onclick="showDownloadModal(PRODUCTS[3])">
             <div class="hero-card-wide-media">
               ${PRODUCTS[3].coverImage
                 ? `<img src="${PRODUCTS[3].coverImage}" alt="${PRODUCTS[3].shortTitle}">`
