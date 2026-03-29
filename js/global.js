@@ -128,6 +128,144 @@ const PRODUCTS = [
   }
 ];
 
+/* ── DOWNLOAD MODAL ── */
+function showDownloadModal(product) {
+  // Remove existing modal if any
+  document.getElementById('dlModal')?.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'dlModal';
+  modal.innerHTML = `
+    <div id="dlBackdrop" style="
+      position:fixed;inset:0;z-index:9999;
+      background:rgba(22,25,25,.75);backdrop-filter:blur(6px);
+      display:flex;align-items:center;justify-content:center;padding:1rem;
+      animation:fadeIn .2s ease">
+      <div style="
+        background:#fff;border-radius:20px;padding:2.5rem;
+        width:100%;max-width:460px;position:relative;
+        box-shadow:0 24px 60px rgba(0,0,0,.3);
+        animation:fadeUp .3s ease">
+
+        <!-- Close -->
+        <button onclick="document.getElementById('dlModal').remove()"
+          style="position:absolute;top:1rem;right:1rem;background:var(--sage);
+          border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;
+          font-size:1.1rem;color:var(--warm-brown);display:flex;align-items:center;justify-content:center">
+          ✕
+        </button>
+
+        <!-- Header -->
+        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem">
+          <div style="width:52px;height:52px;border-radius:12px;overflow:hidden;flex-shrink:0;
+                      background:${product.gradient}">
+            ${product.coverImage
+              ? `<img src="${product.coverImage}" style="width:100%;height:100%;object-fit:cover">`
+              : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.5rem">${product.emoji}</div>`
+            }
+          </div>
+          <div>
+            <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--teal);margin-bottom:.2rem">${product.category}</div>
+            <div style="font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--black);line-height:1.3">${product.shortTitle}</div>
+          </div>
+        </div>
+
+        <p style="font-size:.85rem;color:var(--warm-brown);margin-bottom:1.5rem;line-height:1.6">
+          Enter your details to get instant access. We'll also email you the download link.
+        </p>
+
+        <!-- Form -->
+        <form id="dlForm" onsubmit="submitDownload(event, '${product.id}', '${product.title.replace(/'/g,"\\'")}', '${product.link}')">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem">
+            <div>
+              <label style="font-size:.75rem;font-weight:600;color:var(--black);display:block;margin-bottom:.3rem">First Name *</label>
+              <input id="dlFirstName" class="form-input" type="text" placeholder="Jane" required
+                style="width:100%;padding:.7rem .9rem;border:1.5px solid var(--border);border-radius:8px;font-size:.88rem">
+            </div>
+            <div>
+              <label style="font-size:.75rem;font-weight:600;color:var(--black);display:block;margin-bottom:.3rem">Last Name *</label>
+              <input id="dlLastName" class="form-input" type="text" placeholder="Doe" required
+                style="width:100%;padding:.7rem .9rem;border:1.5px solid var(--border);border-radius:8px;font-size:.88rem">
+            </div>
+          </div>
+          <div style="margin-bottom:.8rem">
+            <label style="font-size:.75rem;font-weight:600;color:var(--black);display:block;margin-bottom:.3rem">Email Address *</label>
+            <input id="dlEmail" class="form-input" type="email" placeholder="jane@example.com" required
+              style="width:100%;padding:.7rem .9rem;border:1.5px solid var(--border);border-radius:8px;font-size:.88rem">
+          </div>
+          <div style="margin-bottom:1.4rem">
+            <label style="font-size:.75rem;font-weight:600;color:var(--black);display:block;margin-bottom:.3rem">WhatsApp (optional)</label>
+            <input id="dlPhone" class="form-input" type="tel" placeholder="+256 700 000 000"
+              style="width:100%;padding:.7rem .9rem;border:1.5px solid var(--border);border-radius:8px;font-size:.88rem">
+          </div>
+          <button type="submit" id="dlSubmitBtn" style="
+            width:100%;padding:.9rem;border-radius:8px;border:none;cursor:pointer;
+            background:var(--teal);color:#fff;font-size:.95rem;font-weight:700;
+            font-family:var(--font-body);transition:background .2s">
+            ⬇ Get My Free Guide →
+          </button>
+          <p style="font-size:.72rem;color:var(--slate);margin-top:.8rem;text-align:center">
+            🔒 Your info is private. Unsubscribe from emails anytime.
+          </p>
+        </form>
+      </div>
+    </div>`;
+
+  document.body.appendChild(modal);
+
+  // Close on backdrop click
+  document.getElementById('dlBackdrop').addEventListener('click', function(e) {
+    if (e.target === this) document.getElementById('dlModal')?.remove();
+  });
+
+  // Focus first input
+  setTimeout(() => document.getElementById('dlFirstName')?.focus(), 100);
+}
+
+async function submitDownload(e, guideId, guideTitle, guideUrl) {
+  e.preventDefault();
+  const btn = document.getElementById('dlSubmitBtn');
+  btn.textContent = 'Processing…';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://apophero-backend.onrender.com/api/v1/downloads', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        guideId,
+        guideTitle,
+        guideUrl,
+        firstName: document.getElementById('dlFirstName').value.trim(),
+        lastName:  document.getElementById('dlLastName').value.trim(),
+        email:     document.getElementById('dlEmail').value.trim(),
+        phone:     document.getElementById('dlPhone').value.trim()
+      })
+    });
+
+    const result = await res.json();
+    if (!result.success) throw new Error(result.message);
+
+    // Success — close modal and trigger download
+    document.getElementById('dlModal').remove();
+    showToast('Guide sent to your email! Starting download… 🎉');
+
+    // Trigger actual file download
+    const a = document.createElement('a');
+    a.href = guideUrl;
+    a.download = guideTitle;
+    a.target = '_blank';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+  } catch (err) {
+    btn.textContent = '⬇ Get My Free Guide →';
+    btn.disabled = false;
+    showToast(err.message || 'Something went wrong. Please try again.');
+  }
+}
+
 /* ── BLOG DATA ── */
 const BLOG_POSTS = [
   {

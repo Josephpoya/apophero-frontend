@@ -39,7 +39,8 @@ pages['shop'] = function(filterParam) {
         <div style="font-size:.75rem;color:var(--slate);margin-bottom:1rem">📖 ${p.readTime}</div>
         <div class="prod-card-footer">
           <span class="prod-price">Free</span>
-          <a href="${p.link}" download target="_blank" class="btn btn-dark btn-sm">⬇ Download Free</a>
+          <button onclick="showDownloadModal(PRODUCTS.find(x=>x.id==='${p.id}'))"
+  class="btn btn-dark btn-sm">⬇ Download Free</button>
         </div>
       </div>
     </div>`).join('');

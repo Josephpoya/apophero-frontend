@@ -20,7 +20,8 @@ pages['home'] = function() {
         <div class="prod-card-desc">${p.desc}</div>
         <div class="prod-card-footer">
           <span class="prod-price">Free</span>
-          <a href="${p.link}" download target="_blank" class="btn btn-dark btn-sm">⬇ Download Free</a>
+          <button onclick="showDownloadModal(PRODUCTS.find(x=>x.id==='${p.id}'))"
+  class="btn btn-dark btn-sm">⬇ Download Free</button>
         </div>
       </div>
     </div>`).join('');
@@ -180,6 +181,7 @@ pages['home'] = function() {
       padding:.55rem 1.1rem; border-radius:var(--radius-sm);
       font-size:.8rem; font-weight:700; text-decoration:none;
       transition:background .2s, transform .15s;
+      <button onclick="showDownloadModal(PRODUCTS[0])" class="hero-dl-btn">⬇ Download Free</button>
     }
     .hero-dl-btn:hover { background:var(--teal-dark); transform:translateY(-1px); }
     .hero-free-badge {
@@ -352,7 +354,7 @@ pages['home'] = function() {
       <div class="hero-cards">
 
         <!-- TALL FEATURED CARD — LEFT -->
-        <div class="hero-card tall" onclick="window.open('${PRODUCTS[0].link}')">
+        <div class="hero-card tall" onclick="showDownloadModal(PRODUCTS[0])">
           <div class="hero-card-media">
             ${PRODUCTS[0].coverImage
               ? `<img src="${PRODUCTS[0].coverImage}" alt="${PRODUCTS[0].shortTitle}">`
@@ -373,7 +375,7 @@ pages['home'] = function() {
         <div class="hero-col">
 
           <!-- CARD 2 -->
-          <div class="hero-card-wide" onclick="window.open('${PRODUCTS[1].link}')">
+          <div class="hero-card-wide" onclick="showDownloadModal(PRODUCTS[0])">
             <div class="hero-card-wide-media">
               ${PRODUCTS[1].coverImage
                 ? `<img src="${PRODUCTS[1].coverImage}" alt="${PRODUCTS[1].shortTitle}">`
@@ -390,7 +392,7 @@ pages['home'] = function() {
           </div>
 
           <!-- CARD 3 -->
-          <div class="hero-card-wide" onclick="window.open('${PRODUCTS[3].link}')">
+          <div class="hero-card-wide" onclick="showDownloadModal(PRODUCTS[0])">
             <div class="hero-card-wide-media">
               ${PRODUCTS[3].coverImage
                 ? `<img src="${PRODUCTS[3].coverImage}" alt="${PRODUCTS[3].shortTitle}">`
