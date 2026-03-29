@@ -181,7 +181,6 @@ pages['home'] = function() {
       padding:.55rem 1.1rem; border-radius:var(--radius-sm);
       font-size:.8rem; font-weight:700; text-decoration:none;
       transition:background .2s, transform .15s;
-      <button onclick="showDownloadModal(PRODUCTS[0])" class="hero-dl-btn">⬇ Download Free</button>
     }
     .hero-dl-btn:hover { background:var(--teal-dark); transform:translateY(-1px); }
     .hero-free-badge {
