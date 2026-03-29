@@ -143,14 +143,86 @@ pages['home'] = function() {
     }
     .hero-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-lg); }
     .hero-card.tall { grid-row:span 2; }
-    .hero-card-img {
-      height:130px; display:flex; align-items:center;
-      justify-content:center; font-size:2.5rem;
-    }
-    .hero-card.tall .hero-card-img { height:200px; }
-    .hero-card-body { padding:1rem 1.1rem 1.2rem; }
     .hero-card-cat { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:var(--teal); margin-bottom:.3rem; }
     .hero-card-title { font-family:var(--font-display); font-size:.95rem; font-weight:600; line-height:1.3; color:var(--black); }
+    /* ── REDESIGNED HERO CARDS ── */
+    .hero-cards { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+
+    /* tall left card */
+    .hero-card {
+      border-radius:var(--radius-lg); overflow:hidden;
+      background:var(--black); cursor:pointer;
+      transition:transform .25s, box-shadow .25s;
+      display:flex; flex-direction:column;
+    }
+    .hero-card:hover { transform:translateY(-6px); box-shadow:0 20px 50px rgba(0,0,0,.5); }
+    .hero-card.tall { grid-row:span 2; }
+    .hero-card-media {
+      width:100%; height:200px; position:relative; overflow:hidden; flex-shrink:0;
+    }
+    .hero-card.tall .hero-card-media { height:260px; }
+    .hero-card-media img {
+      width:100%; height:100%; object-fit:cover; display:block;
+      transition:transform .4s ease;
+    }
+    .hero-card:hover .hero-card-media img { transform:scale(1.05); }
+    .hero-card-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to bottom, transparent 40%, rgba(22,25,25,.95) 100%);
+    }
+    .hero-card-body.dark { padding:1rem 1.2rem 1.4rem; flex:1; }
+    .hero-card-cat { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--teal); margin-bottom:.4rem; }
+    .hero-card-title { font-family:var(--font-display); font-size:1.05rem; font-weight:700; line-height:1.3; color:#fff; margin-bottom:.5rem; }
+    .hero-card-desc { font-size:.78rem; color:rgba(255,255,255,.5); line-height:1.6; margin-bottom:1rem; }
+    .hero-dl-btn {
+      display:inline-flex; align-items:center; gap:.4rem;
+      background:var(--teal); color:#fff;
+      padding:.55rem 1.1rem; border-radius:var(--radius-sm);
+      font-size:.8rem; font-weight:700; text-decoration:none;
+      transition:background .2s, transform .15s;
+    }
+    .hero-dl-btn:hover { background:var(--teal-dark); transform:translateY(-1px); }
+    .hero-free-badge {
+      position:absolute; top:10px; right:10px;
+      background:var(--teal); color:#fff;
+      font-size:.65rem; font-weight:700; letter-spacing:.6px;
+      padding:.25rem .65rem; border-radius:100px;
+    }
+
+    /* right column wide cards */
+    .hero-col { display:flex; flex-direction:column; gap:1rem; }
+    .hero-card-wide {
+      border-radius:var(--radius-lg); overflow:hidden;
+      background:var(--black); cursor:pointer; flex:1;
+      display:flex; flex-direction:column;
+      transition:transform .25s, box-shadow .25s;
+      min-height:160px;
+    }
+    .hero-card-wide:hover { transform:translateY(-4px); box-shadow:0 14px 35px rgba(0,0,0,.45); }
+    .hero-card-wide-media {
+      position:relative; height:100px; overflow:hidden; flex-shrink:0;
+    }
+    .hero-card-wide-media img {
+      width:100%; height:100%; object-fit:cover; display:block;
+      transition:transform .4s ease;
+    }
+    .hero-card-wide:hover .hero-card-wide-media img { transform:scale(1.05); }
+    .hero-card-wide-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to bottom, transparent 30%, rgba(22,25,25,.9) 100%);
+    }
+    .hero-card-wide-body {
+      padding:.8rem 1rem 1rem;
+      display:flex; align-items:center; justify-content:space-between; gap:.5rem;
+    }
+    .hero-wide-arrow {
+      width:32px; height:32px; border-radius:50%; flex-shrink:0;
+      border:1.5px solid rgba(9,200,184,.25);
+      display:flex; align-items:center; justify-content:center;
+      color:var(--teal); font-size:1rem;
+      transition:background .2s, border-color .2s;
+    }
+    .hero-card-wide:hover .hero-wide-arrow { background:var(--teal); color:#fff; border-color:var(--teal); }
 
     /* ── TRUST BAR ── */
     .trust-bar {
@@ -278,46 +350,62 @@ pages['home'] = function() {
 
     <div class="hero-right">
       <div class="hero-cards">
-        <div class="hero-card tall" onclick="window.open('${PRODUCTS[0].link}')" style="cursor:pointer">
-          <div class="hero-card-img" style="background:${PRODUCTS[0].gradient};padding:0;overflow:hidden;position:relative">
+
+        <!-- TALL FEATURED CARD — LEFT -->
+        <div class="hero-card tall" onclick="window.open('${PRODUCTS[0].link}')">
+          <div class="hero-card-media">
             ${PRODUCTS[0].coverImage
-              ? `<img src="${PRODUCTS[0].coverImage}" alt="${PRODUCTS[0].shortTitle}"
-                      style="width:100%;height:100%;object-fit:cover;display:block">`
-              : `<span style="font-size:2.5rem">${PRODUCTS[0].emoji}</span>`
+              ? `<img src="${PRODUCTS[0].coverImage}" alt="${PRODUCTS[0].shortTitle}">`
+              : `<div class="hero-card-media-fallback" style="background:${PRODUCTS[0].gradient}"></div>`
             }
+            <div class="hero-card-overlay"></div>
+            <span class="hero-free-badge">FREE</span>
           </div>
-          <div class="hero-card-body">
+          <div class="hero-card-body dark">
             <div class="hero-card-cat">${PRODUCTS[0].category}</div>
             <div class="hero-card-title">${PRODUCTS[0].shortTitle}</div>
+            <div class="hero-card-desc">${PRODUCTS[0].desc.slice(0,80)}…</div>
+            <a href="${PRODUCTS[0].link}" download class="hero-dl-btn">⬇ Download Free</a>
           </div>
         </div>
 
-        <div class="hero-card" onclick="window.open('${PRODUCTS[1].link}')" style="cursor:pointer">
-          <div class="hero-card-img" style="background:${PRODUCTS[1].gradient};padding:0;overflow:hidden;position:relative">
-            ${PRODUCTS[1].coverImage
-              ? `<img src="${PRODUCTS[1].coverImage}" alt="${PRODUCTS[1].shortTitle}"
-                      style="width:100%;height:100%;object-fit:cover;display:block">`
-              : `<span style="font-size:2rem">${PRODUCTS[1].emoji}</span>`
-            }
-          </div>
-          <div class="hero-card-body">
-            <div class="hero-card-cat">${PRODUCTS[1].category}</div>
-            <div class="hero-card-title">${PRODUCTS[1].shortTitle}</div>
-          </div>
-        </div>
+        <!-- RIGHT COLUMN -->
+        <div class="hero-col">
 
-        <div class="hero-card" onclick="window.open('${PRODUCTS[3].link}')" style="cursor:pointer">
-          <div class="hero-card-img" style="background:${PRODUCTS[3].gradient};padding:0;overflow:hidden;position:relative">
-            ${PRODUCTS[3].coverImage
-              ? `<img src="${PRODUCTS[3].coverImage}" alt="${PRODUCTS[3].shortTitle}"
-                      style="width:100%;height:100%;object-fit:cover;display:block">`
-              : `<span style="font-size:2rem">${PRODUCTS[3].emoji}</span>`
-            }
+          <!-- CARD 2 -->
+          <div class="hero-card-wide" onclick="window.open('${PRODUCTS[1].link}')">
+            <div class="hero-card-wide-media">
+              ${PRODUCTS[1].coverImage
+                ? `<img src="${PRODUCTS[1].coverImage}" alt="${PRODUCTS[1].shortTitle}">`
+                : `<div style="width:100%;height:100%;background:${PRODUCTS[1].gradient}"></div>`
+              }
+              <div class="hero-card-wide-overlay"></div>
+              <span class="hero-free-badge">FREE</span>
+            </div>
+            <div class="hero-card-wide-body">
+              <div class="hero-card-cat">${PRODUCTS[1].category}</div>
+              <div class="hero-card-title">${PRODUCTS[1].shortTitle}</div>
+              <div class="hero-wide-arrow">→</div>
+            </div>
           </div>
-          <div class="hero-card-body">
-            <div class="hero-card-cat">${PRODUCTS[3].category}</div>
-            <div class="hero-card-title">${PRODUCTS[3].shortTitle}</div>
+
+          <!-- CARD 3 -->
+          <div class="hero-card-wide" onclick="window.open('${PRODUCTS[3].link}')">
+            <div class="hero-card-wide-media">
+              ${PRODUCTS[3].coverImage
+                ? `<img src="${PRODUCTS[3].coverImage}" alt="${PRODUCTS[3].shortTitle}">`
+                : `<div style="width:100%;height:100%;background:${PRODUCTS[3].gradient}"></div>`
+              }
+              <div class="hero-card-wide-overlay"></div>
+              <span class="hero-free-badge" style="background:var(--terracotta)">FREE</span>
+            </div>
+            <div class="hero-card-wide-body">
+              <div class="hero-card-cat" style="color:var(--terracotta)">${PRODUCTS[3].category}</div>
+              <div class="hero-card-title">${PRODUCTS[3].shortTitle}</div>
+              <div class="hero-wide-arrow" style="border-color:rgba(160,96,70,.2);color:var(--terracotta)">→</div>
+            </div>
           </div>
+
         </div>
       </div>
     </div>
