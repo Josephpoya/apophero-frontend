@@ -426,7 +426,7 @@ pages['home'] = function() {
       <div class="section-header center reveal">
         <div class="eyebrow">How It Works</div>
         <h2 class="display-md" style="margin-top:.6rem">Your Path to Better Health</h2>
-        <p class="lead">A simple, three-step framework built around your specific condition, lifestyle, and goals.</p>
+        <p class="lead">A simple, framework built around your specific condition, lifestyle, and goals that addresses symptoms, treats root causes, and adjusts your behaviours, for immediate relief and long-term optimal health .</p>
       </div>
       <div class="how-grid">
         <div class="how-card reveal">
