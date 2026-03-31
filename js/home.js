@@ -367,9 +367,31 @@ pages['home'] = function() {
       .testi-grid { grid-template-columns:1fr; }
       .cta-strip { grid-template-columns:1fr; padding:5rem 5%; }
     }
-    @media(max-width:600px) {
-      .hero-cards { grid-template-columns:1fr; }
+    @media(max-width:960px) {
+      .hero-cards { grid-template-columns:1fr 1fr; }
       .hero-stats { gap:1.5rem; }
+    }
+    @media(max-width:480px) {
+      .hero-cards { grid-template-columns:1fr; }
+      .hero-stats { gap:1rem; flex-wrap:wrap; }
+    }
+
+    /* ── FEATURED GUIDES MOBILE FIX ── */
+    @media(max-width:768px) {
+      .featured-guides-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+    @media(min-width:769px) and (max-width:960px) {
+      .featured-guides-grid {
+        grid-template-columns: repeat(2,1fr) !important;
+      }
+    }
+
+    @media(max-width:768px) {
+      .prod-card-title { font-size:.95rem; }
+      .prod-card-desc  { font-size:.78rem; }
+      .prod-card-cat   { font-size:.65rem; }
     }
   </style>
 
@@ -537,7 +559,7 @@ This may include lifestyle changes, nutrition, and targeted supplementation.</p>
         </div>
         <a class="btn btn-outline btn-arrow" onclick="navigate('shop')">View All Plans</a>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem" class="featured-guides-grid">
         ${featuredCards}
       </div>
     </div>
