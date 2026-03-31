@@ -587,12 +587,45 @@ function renderNav() {
     }
 
     /* hamburger */
+    
     .hamburger {
       display:none; flex-direction:column;
       justify-content:center; gap:5px;
       width:40px; height:40px; cursor:pointer;
       background:rgba(22,25,25,.08); border-radius:8px;
       padding:8px; border:none;
+    }
+      /* Mobile nav layout — hamburger LEFT, logo CENTER, account RIGHT */
+    @media(max-width:960px) {
+      #navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      #navbar .nav-logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        order: 2;
+      }
+      #navbar .hamburger {
+        order: 1;
+        flex-shrink: 0;
+      }
+      #navbar .nav-actions {
+        order: 3;
+        flex-shrink: 0;
+        display: flex !important;
+        align-items: center;
+        gap: .5rem;
+      }
+      /* Hide Book Consultation text on mobile — show only account icon */
+      #navbar .nav-actions .btn-nav {
+        display: none;
+      }
+      #navbar .nav-actions #navAccountBtn {
+        display: flex !important;
+      }
     }
     @media(max-width:960px) { .hamburger { display:flex; } }
     .hamburger span {
@@ -611,15 +644,27 @@ function renderNav() {
   </style>
 
   <nav id="navbar">
-    <a href="#home" class="nav-logo" onclick="navigate('home')">Apophero <span>Health</span></a>
-    <ul class="nav-links">
-      <li><a href="#home"  onclick="navigate('home')">Home</a></li>
-      <li><a href="#shop"  onclick="navigate('shop')">Shop</a></li>
-      <li><a href="#blog"  onclick="navigate('blog')">Blog</a></li>
-      <li><a href="#about" onclick="navigate('about')">About Us</a></li>
+    <!-- MOBILE: hamburger LEFT | logo CENTER | account RIGHT -->
+    <!-- DESKTOP: logo LEFT | links CENTER | actions RIGHT -->
+
+    <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileMenu()"
+      style="order:1">
+      <span></span><span></span><span></span>
+    </button>
+
+    <a href="#home" class="nav-logo" onclick="navigate('home')" style="order:2">
+      Apophero <span>Health</span>
+    </a>
+
+    <ul class="nav-links" style="order:2">
+      <li><a href="#home"    onclick="navigate('home')">Home</a></li>
+      <li><a href="#shop"    onclick="navigate('shop')">Shop</a></li>
+      <li><a href="#blog"    onclick="navigate('blog')">Blog</a></li>
+      <li><a href="#about"   onclick="navigate('about')">About</a></li>
       <li><a href="#contact" onclick="navigate('contact')">Contact</a></li>
     </ul>
-    <div class="nav-actions">
+
+    <div class="nav-actions" style="order:3">
       <button id="navAccountBtn" onclick="handleAccountClick()"
         style="width:38px;height:38px;border-radius:50%;border:1.5px solid var(--border);
         background:var(--white);cursor:pointer;display:flex;align-items:center;
@@ -634,9 +679,6 @@ function renderNav() {
       </button>
       <a class="btn btn-nav" href="#book" onclick="navigate('book')">Book Consultation</a>
     </div>
-    <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileMenu()">
-      <span></span><span></span><span></span>
-    </button>
   </nav>
 
   <!-- MOBILE MENU -->
