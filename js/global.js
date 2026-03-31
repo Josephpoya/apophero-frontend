@@ -620,6 +620,18 @@ function renderNav() {
       <li><a href="#contact" onclick="navigate('contact')">Contact</a></li>
     </ul>
     <div class="nav-actions">
+      <button id="navAccountBtn" onclick="handleAccountClick()"
+        style="width:38px;height:38px;border-radius:50%;border:1.5px solid var(--border);
+        background:var(--white);cursor:pointer;display:flex;align-items:center;
+        justify-content:center;color:var(--warm-brown);transition:all .2s;margin-right:.5rem"
+        onmouseover="this.style.borderColor='var(--teal)';this.style.color='var(--teal)'"
+        onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--warm-brown)'"
+        title="My Account">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </button>
       <a class="btn btn-nav" href="#book" onclick="navigate('book')">Book Consultation</a>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileMenu()">
@@ -826,6 +838,19 @@ function navigate(page, param = null) {
     initReveal();
     initNewsletter();
     setTimeout(initReveal, 100);
+  }
+}
+
+/* ── ACCOUNT CLICK HANDLER ── */
+function handleAccountClick() {
+  if (typeof currentUser !== 'undefined' && currentUser) {
+    navigate('account');
+  } else {
+    if (typeof openAuthModal === 'function') {
+      openAuthModal('login');
+    } else {
+      navigate('account');
+    }
   }
 }
 
