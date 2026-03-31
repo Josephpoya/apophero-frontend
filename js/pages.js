@@ -792,10 +792,28 @@ function copyArticleLink() {
    BOOK CONSULTATION PAGE
 ═══════════════════════════════════════════ */
 pages['book'] = function() {
-  const packages = [
-    { icon:'💬', name:'Quick Consult', duration:'30 minutes', price:'Free intro', desc:'A brief orientation session to understand your health goals and point you to the right resources.', features:['Health goal assessment','Resource recommendations','Q&A session','Follow-up email summary'], highlight:false },
-    { icon:'🎯', name:'Deep Dive', duration:'60 minutes', price:'Premium', desc:'A comprehensive 1-on-1 session where we build a fully personalized health protocol for your specific condition.', features:['Full health assessment','Custom protocol creation','Lifestyle & nutrition plan','2-week email follow-up','Supplement guidance'], highlight:true },
-    { icon:'🚀', name:'3-Month Journey', duration:'Monthly sessions', price:'Full Program', desc:'Three monthly deep-dive sessions plus unlimited WhatsApp support to ensure you hit your health goals.', features:['3 × 60-min sessions','Unlimited WhatsApp support','Protocol adjustments','Progress tracking','Priority response'], highlight:false }
+  // Handle PayPal return after payment
+  if (window.location.hash.includes('payment=success')) {
+    setTimeout(() => {
+      showToast('Payment successful! 🎉 Please fill in your details below to confirm your session.');
+      document.getElementById('bookForm')?.scrollIntoView({ behavior:'smooth' });
+      history.replaceState(null, '', window.location.pathname + '#book');
+    }, 600);
+  }
+
+const packages = [
+    { icon:'💬', name:'Quick Consult', duration:'30 minutes', price:'Free', priceAmount:0, currency:'USD', paid:false,
+      desc:'A brief orientation session to understand your health goals and point you to the right resources.',
+      features:['Health goal assessment','Resource recommendations','Q&A session','Follow-up email summary'],
+      highlight:false },
+    { icon:'🎯', name:'Deep Dive', duration:'60 minutes', price:'$20', priceAmount:20, currency:'USD', paid:true,
+      desc:'A comprehensive 1-on-1 session where we build a fully personalized health protocol for your specific condition.',
+      features:['Full health assessment','Custom protocol creation','Lifestyle & nutrition plan','2-week email follow-up','Supplement guidance'],
+      highlight:true },
+    { icon:'🚀', name:'3-Month Journey', duration:'Monthly sessions', price:'$30', priceAmount:30, currency:'USD', paid:true,
+      desc:'Three monthly deep-dive sessions plus unlimited WhatsApp support to ensure you hit your health goals.',
+      features:['3 × 60-min sessions','Unlimited WhatsApp support','Protocol adjustments','Progress tracking','Priority response'],
+      highlight:false }
   ];
 
   return `
@@ -883,14 +901,28 @@ pages['book'] = function() {
             <div class="pkg-icon">${p.icon}</div>
             <div class="pkg-name">${p.name}</div>
             <div class="pkg-duration">${p.duration}</div>
-            <div class="pkg-price">${p.price}</div>
+            <div class="pkg-price">
+              ${p.paid
+                ? `<span style="font-size:2.2rem">${p.price}</span><span style="font-size:.85rem;opacity:.5;font-weight:400"> USD</span>`
+                : `<span style="font-size:1.4rem">Free</span>`
+              }
+            </div>
             <p class="pkg-desc">${p.desc}</p>
             <ul class="pkg-features">
               ${p.features.map(f=>`<li>${f}</li>`).join('')}
             </ul>
-            <a class="btn ${p.highlight?'btn-primary':'btn-outline'}" onclick="scrollToBookForm()" style="text-align:center;justify-content:center">
-              Book This Session →
-            </a>
+            ${p.paid
+              ? `<button onclick="openConsultPayment('${p.name}', ${p.priceAmount}, '${p.currency}')"
+                  class="btn ${p.highlight?'btn-primary':'btn-outline'}"
+                  style="text-align:center;justify-content:center;width:100%;cursor:pointer">
+                  Pay ${p.price} &amp; Book →
+                </button>`
+              : `<button onclick="scrollToBookForm()"
+                  class="btn btn-outline"
+                  style="text-align:center;justify-content:center;width:100%;cursor:pointer">
+                  Book Free Session →
+                </button>`
+            }
           </div>`).join('')}
       </div>
     </div>
@@ -1004,4 +1036,153 @@ async function submitBooking(e) {
     btn.disabled = false;
     showToast(err.message || 'Something went wrong. Please try again.');
   }
+}
+
+/* ═══════════════════════════════════════════
+   PAYPAL PAYMENT MODAL
+═══════════════════════════════════════════ */
+function openConsultPayment(sessionName, amount, currency) {
+  document.getElementById('payModal')?.remove();
+
+  document.body.insertAdjacentHTML('beforeend', `
+  <style>
+    .pay-modal-bg {
+      position:fixed; inset:0; z-index:9999;
+      background:rgba(22,25,25,.8); backdrop-filter:blur(6px);
+      display:flex; align-items:center; justify-content:center; padding:1rem;
+      animation:fadeIn .2s ease;
+    }
+    .pay-modal {
+      background:#fff; border-radius:24px; width:100%; max-width:460px;
+      box-shadow:0 24px 60px rgba(0,0,0,.3); animation:fadeUp .3s ease; overflow:hidden;
+    }
+    .pay-modal-header {
+      background:linear-gradient(135deg,#161919,#2a2e2e);
+      padding:2rem; text-align:center; position:relative;
+    }
+    .pay-modal-close {
+      position:absolute; top:1rem; right:1rem;
+      width:32px; height:32px; border-radius:50%;
+      background:rgba(255,255,255,.1); border:none; cursor:pointer;
+      color:#fff; font-size:1rem; display:flex; align-items:center; justify-content:center;
+    }
+    .pay-modal-title { font-family:var(--font-display); font-size:1.3rem; font-weight:700; color:#fff; margin-bottom:.3rem; }
+    .pay-modal-sub   { font-size:.8rem; color:rgba(255,255,255,.5); }
+    .pay-amount      { font-family:var(--font-display); font-size:2.6rem; font-weight:700; color:#09C8B8; margin:.5rem 0; }
+    .pay-body        { padding:2rem; }
+    .pay-method-label{ font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:#848B8C; margin-bottom:1rem; }
+    .pay-methods     { display:flex; flex-direction:column; gap:.8rem; }
+    .pay-btn {
+      display:flex; align-items:center; gap:1rem;
+      padding:1rem 1.2rem; border-radius:12px; border:1.5px solid #e8ebe8;
+      background:#fff; cursor:pointer; width:100%; text-align:left;
+      transition:all .2s; font-family:var(--font-body);
+    }
+    .pay-btn:hover { border-color:#09C8B8; background:#e3f8f7; transform:translateY(-1px); }
+    .pay-btn-icon  { width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .pay-btn-name  { font-weight:700; font-size:.92rem; color:#161919; }
+    .pay-btn-sub   { font-size:.73rem; color:#848B8C; margin-top:.1rem; }
+    .pay-btn-arrow { margin-left:auto; color:#848B8C; }
+    .pay-secure    { text-align:center; font-size:.72rem; color:#848B8C; margin-top:1.2rem; }
+    .pay-divider   { display:flex; align-items:center; gap:.8rem; margin:.6rem 0; }
+    .pay-divider-line { flex:1; height:1px; background:#f0f2f0; }
+    .pay-divider-text { font-size:.7rem; color:#848B8C; font-weight:600; }
+  </style>
+
+  <div class="pay-modal-bg" id="payModal" onclick="handlePayBackdrop(event)">
+    <div class="pay-modal">
+      <div class="pay-modal-header">
+        <button class="pay-modal-close" onclick="closePayModal()">✕</button>
+        <div class="pay-modal-title">${sessionName}</div>
+        <div class="pay-modal-sub">Complete payment to confirm your session</div>
+        <div class="pay-amount">$${amount} <span style="font-size:1rem;color:rgba(255,255,255,.35)">USD</span></div>
+      </div>
+      <div class="pay-body">
+        <div class="pay-method-label">Choose Payment Method</div>
+        <div class="pay-methods">
+
+          <!-- PayPal -->
+          <button class="pay-btn" onclick="payWithPayPal('${sessionName}', ${amount}, '${currency}')">
+            <div class="pay-btn-icon" style="background:#003087">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+                <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.816-5.09a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.777-4.471z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="pay-btn-name">Pay with PayPal</div>
+              <div class="pay-btn-sub">PayPal balance, card or bank account</div>
+            </div>
+            <span class="pay-btn-arrow">→</span>
+          </button>
+
+          <div class="pay-divider">
+            <div class="pay-divider-line"></div>
+            <div class="pay-divider-text">OR</div>
+            <div class="pay-divider-line"></div>
+          </div>
+
+          <!-- Fill form first -->
+          <button class="pay-btn" onclick="closePayModal(); scrollToBookForm()" style="border-style:dashed">
+            <div class="pay-btn-icon" style="background:#f3f4f6;font-size:1.3rem">📋</div>
+            <div>
+              <div class="pay-btn-name" style="color:#848B8C">Fill form first, pay later</div>
+              <div class="pay-btn-sub">Submit your details and we'll send a payment link</div>
+            </div>
+            <span class="pay-btn-arrow">→</span>
+          </button>
+
+        </div>
+        <div class="pay-secure">🔒 Payments are secure and encrypted. Confirmation email sent after payment.</div>
+      </div>
+    </div>
+  </div>`);
+
+  document.addEventListener('keydown', handlePayEscape);
+}
+
+function openProductPayment(productId) {
+  const product = PRODUCTS.find(p => p.id === productId);
+  if (!product) return;
+
+  if (product.isFree) {
+    showDownloadModal(product); return;
+  }
+
+  document.getElementById('payModal')?.remove();
+
+  // Reuse same payment modal but for product
+  openConsultPayment(product.title, parseFloat(product.price.replace('$','')), 'USD');
+}
+
+function handlePayBackdrop(e) {
+  if (e.target.id === 'payModal') closePayModal();
+}
+
+function handlePayEscape(e) {
+  if (e.key === 'Escape') closePayModal();
+}
+
+function closePayModal() {
+  document.getElementById('payModal')?.remove();
+  document.removeEventListener('keydown', handlePayEscape);
+}
+
+function payWithPayPal(sessionName, amount, currency) {
+  const paypalEmail = 'apopherohealth@gmail.com';
+  const itemName    = encodeURIComponent('Apophero Health - ' + sessionName);
+  const returnUrl   = encodeURIComponent(window.location.origin + window.location.pathname + '#book?payment=success');
+  const cancelUrl   = encodeURIComponent(window.location.origin + window.location.pathname + '#book');
+
+  const paypalUrl = 'https://www.paypal.com/cgi-bin/webscr?cmd=_xclick'
+    + '&business=' + encodeURIComponent(paypalEmail)
+    + '&item_name=' + itemName
+    + '&amount=' + amount
+    + '&currency_code=' + currency
+    + '&return=' + returnUrl
+    + '&cancel_return=' + cancelUrl
+    + '&no_shipping=1';
+
+  closePayModal();
+  showToast('Redirecting to PayPal… 🔐');
+  setTimeout(() => window.open(paypalUrl, '_blank'), 500);
 }

@@ -9,6 +9,9 @@ const PRODUCTS = [
   {
     id: 'metabolic-blueprint',
     title: 'Unfatting: The Metabolic Blueprint to Permanent Weight Loss',
+    // Add these two fields to EVERY product in PRODUCTS array
+price:  'Free',   // change to e.g. '$9.99' for paid guides
+isFree: true,     // change to false for paid guides
     shortTitle: 'Metabolic Blueprint',
     category: 'Weight Management',
     coverImage: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774712777/StockCake-Fitness_Journey_Begins-203913-medium_wjxzwm.jpg',
@@ -24,6 +27,9 @@ const PRODUCTS = [
   {
     id: 'testosterone',
     title: 'Boosting Your Testosterone Naturally',
+    // Add these two fields to EVERY product in PRODUCTS array
+price:  'Free',   // change to e.g. '$9.99' for paid guides
+isFree: true,     // change to false for paid guides
     shortTitle: 'Testosterone Guide',
     category: "Men's Health",
     coverImage: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774712780/StockCake-Neon_Fitness_Future-3614500-medium_zkvfnp.webp',
@@ -39,6 +45,9 @@ const PRODUCTS = [
   {
     id: 'premature-ejaculation',
     title: 'Overcoming Premature Ejaculation Naturally',
+    // Add these two fields to EVERY product in PRODUCTS array
+price:  'Free',   // change to e.g. '$9.99' for paid guides
+isFree: true,     // change to false for paid guides
     shortTitle: 'Overcome PE',
     category: "Men's Health",
     coverImage: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774712758/StockCake-Couple_Sleeping_Peacefully-1126526-medium_xqjant.webp',
@@ -54,6 +63,9 @@ const PRODUCTS = [
   {
     id: 'pcos',
     title: 'Personalized PCOS Prevention & Reversal Protocol',
+    // Add these two fields to EVERY product in PRODUCTS array
+price:  'Free',   // change to e.g. '$9.99' for paid guides
+isFree: true,     // change to false for paid guides
     shortTitle: 'PCOS Protocol',
     category: "Women's Health",
     coverImage: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774708507/Your_Personalized_PCOS_Prevention_Reversal_Protocol_jycrcq.png',
@@ -69,6 +81,9 @@ const PRODUCTS = [
   {
     id: 'antenatal',
     title: 'Full Complete Antenatal Wellness Plan',
+    // Add these two fields to EVERY product in PRODUCTS array
+price:  'Free',   // change to e.g. '$9.99' for paid guides
+isFree: true,     // change to false for paid guides
     shortTitle: 'Antenatal Wellness',
     category: "Women's Health",
     coverImage: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774708965/ANTENATAL_WELLNESS_PLAN_COVER_1_fk0xgd.png',
@@ -84,6 +99,9 @@ const PRODUCTS = [
   {
     id: 'wellness-journal',
     title: 'Wellness Journal & Monthly Budget Tracker',
+    // Add these two fields to EVERY product in PRODUCTS array
+price:  'Free',   // change to e.g. '$9.99' for paid guides
+isFree: true,     // change to false for paid guides
     shortTitle: 'Wellness Journal',
     category: 'Wellness',
     coverImage: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774713193/StockCake-Sunset_Jogging_Couple-1117006-medium_k3zvsz.jpg',
@@ -99,6 +117,9 @@ const PRODUCTS = [
   {
     id: 'masturbation-addiction',
     title: 'Overcome Masturbation & Pornography Addiction',
+    // Add these two fields to EVERY product in PRODUCTS array
+price:  'Free',   // change to e.g. '$9.99' for paid guides
+isFree: true,     // change to false for paid guides
     shortTitle: 'Freedom Protocol',
     category: "Men's Health",
     coverImage: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774712762/StockCake-Late-night_screen_glow-580861-medium_ih13bg.jpg',
@@ -114,6 +135,9 @@ const PRODUCTS = [
   {
     id: 'wellness-habits',
     title: '30 Simple Wellness Habits for Busy People',
+    // Add these two fields to EVERY product in PRODUCTS array
+price:  'Free',   // change to e.g. '$9.99' for paid guides
+isFree: true,     // change to false for paid guides
     shortTitle: '30 Wellness Habits',
     category: 'Wellness',
     coverImage: 'https://res.cloudinary.com/dl4fatwns/image/upload/v1774713299/StockCake-Cyclists_in_Autumn-658852-medium_wt5yiu.jpg',

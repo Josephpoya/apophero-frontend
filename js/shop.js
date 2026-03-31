@@ -38,9 +38,15 @@ pages['shop'] = function(filterParam) {
         </div>
         <div style="font-size:.75rem;color:var(--slate);margin-bottom:1rem">📖 ${p.readTime}</div>
         <div class="prod-card-footer">
-          <span class="prod-price">Free</span>
-          <button onclick="showDownloadModal(PRODUCTS.find(x=>x.id==='${p.id}'))"
-  class="btn btn-dark btn-sm">⬇ Download</button>
+          <span class="prod-price" style="color:${p.isFree?'var(--teal)':'var(--terracotta)'}">
+  ${p.price}
+</span>
+          ${p.isFree
+  ? `<button onclick="showDownloadModal(PRODUCTS.find(x=>x.id==='${p.id}'))"
+      class="btn btn-dark btn-sm">⬇ Download</button>`
+  : `<button onclick="openProductPayment('${p.id}')"
+      class="btn btn-primary btn-sm">${p.price} — Buy Now →</button>`
+}
         </div>
       </div>
     </div>`).join('');
