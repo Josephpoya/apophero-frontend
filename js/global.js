@@ -226,7 +226,7 @@ function showDownloadModal(product) {
             width:100%;padding:.9rem;border-radius:8px;border:none;cursor:pointer;
             background:var(--teal);color:#fff;font-size:.95rem;font-weight:700;
             font-family:var(--font-body);transition:background .2s">
-            ⬇ Get My Free Guide →
+            ⬇ Get My Guide/Plan →
           </button>
           <p style="font-size:.72rem;color:var(--slate);margin-top:.8rem;text-align:center">
             🔒 Your info is private. Unsubscribe from emails anytime.
@@ -851,7 +851,7 @@ function renderNewsletter() {
   return `
   <section class="newsletter-strip">
     <div>
-      <h2>Get Free Health Guides<br>Straight to Your Inbox</h2>
+      <h2>Enroll to the Apophero Health Newsletter<br>Straight to Your Inbox</h2>
       <p>Join thousands taking control of their health.</p>
     </div>
     <form class="newsletter-form" onsubmit="handleNewsletter(event)">
@@ -869,7 +869,7 @@ function handleNewsletter(e) {
   btn.disabled = true;
   showToast('Welcome! Your first guide is on its way.');
   e.target.querySelector('input').value = '';
-  setTimeout(() => { btn.textContent = 'Subscribe Free →'; btn.style.background = ''; btn.disabled = false; }, 4000);
+  setTimeout(() => { btn.textContent = 'Subscribe →'; btn.style.background = ''; btn.disabled = false; }, 4000);
 }
 
 /* ── RENDER WA WIDGET ── */
